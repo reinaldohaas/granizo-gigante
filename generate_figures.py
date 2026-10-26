@@ -302,16 +302,14 @@ def generate_individual_skewt(metrics):
 def generate_tripartite_skewt_panel(metrics):
     """Gera o painel 3-em-1 comparando os Skew-T lado a lado."""
     fig = plt.figure(figsize=(18, 7.5), dpi=150)
-    dates = ['19951212', '19951222', '19951224']
-    titles = [
-        '12/12/1995 12Z (Estável)',
-        '22/12/1995 12Z (Neutra)',
-        '24/12/1995 12Z (Instável)'
+    cases_trip = [
+        ('sounding_20260826_12Z.txt', '26/08/2026 12Z (Estável)', '20260826'),
+        ('sounding_20260831_00Z.txt', '31/08/2026 00Z (Neutra)', '20260831'),
+        ('sounding_20260828_12Z.txt', '28/08/2026 12Z (Instável — Granizo Gigante)', '20260828_raw')
     ]
-    m_keys = ['19951212', '19951222', '19951224_raw']
 
-    for i, date in enumerate(dates):
-        df = parse_sounding_file(f"metpack/sounding_{date}_12Z.txt")
+    for i, (fname, title, m_key) in enumerate(cases_trip):
+        df = parse_sounding_file(f"metpack/{fname}")
         if df is None:
             continue
         p = df['p'].values * units.hPa
@@ -336,7 +334,7 @@ def generate_tripartite_skewt_panel(metrics):
         except Exception:
             pass
 
-        m = metrics[m_keys[i]]
+        m = metrics[m_key]
         cap_val = m.get('sbcape_Jkg', 0)
         pw_val = m.get('pw_mm', 0)
 
@@ -347,7 +345,7 @@ def generate_tripartite_skewt_panel(metrics):
             skew.ax.set_ylabel('Pressão (hPa)', fontsize=10, fontweight='bold')
         else:
             skew.ax.set_ylabel('')
-        skew.ax.set_title(f"{titles[i]}\nSBCAPE = {cap_val:.0f} J/kg | PW = {pw_val:.1f} mm", fontsize=10.5, fontweight='bold')
+        skew.ax.set_title(f"{title}\nSBCAPE = {cap_val:.0f} J/kg | PW = {pw_val:.1f} mm", fontsize=10.5, fontweight='bold')
         skew.ax.legend(loc='upper right', fontsize=8)
 
     plt.tight_layout()
@@ -523,7 +521,7 @@ def generate_3_soundings_profiles_comparison(metrics):
             ax.set_ylabel('')
 
         ax.set_xlim(xlims[i])
-        ax.set_title(titles[i], fontsize=10.5, fontweight='bold')
+        ax.set_title(title, fontsize=10.5, fontweight='bold')
         ax.legend(loc='upper right', fontsize=8.5, framealpha=0.92)
         ax.grid(True, linestyle=':', alpha=0.6, color='#94a3b8')
 
@@ -542,7 +540,7 @@ def generate_3_soundings_profiles_comparison(metrics):
 # ==============================================================================
 def generate_cap2_thermo_profiles(metrics):
     """Gera perfis termodinâmicos do Cap. 2 de Emanuel com topo em 200 hPa e fundo branco."""
-    df = parse_sounding_file('metpack/sounding_19951224_12Z.txt')
+    df = parse_sounding_file('metpack/sounding_20260828_12Z.txt')
     if df is None:
         return
 
@@ -571,7 +569,7 @@ def generate_cap2_thermo_profiles(metrics):
     p_m = p_hpa[mask]
 
     fig, axes = plt.subplots(1, 4, figsize=(18, 7.5), dpi=150)
-    fig.suptitle("Perfis Verticais de Estabilidade Termodinâmica (Emanuel 1994, Cap. 2)\nSBPA Porto Alegre — 24/12/1995 12Z (Superfície até 200 hPa)", 
+    fig.suptitle("Perfis Verticais de Estabilidade Termodinâmica (Emanuel 1994, Cap. 2)\nSBFL Florianópolis (83899) — 28/08/2026 12Z (Granizo Gigante) (Superfície até 200 hPa)", 
                  fontsize=13, fontweight='bold', color='#0f172a', y=0.98)
 
     yticks = [1000, 925, 850, 700, 600, 500, 400, 300, 200]
@@ -723,11 +721,11 @@ def generate_all_soundings_colab_profiles(metrics):
 # ==============================================================================
 def generate_kinematics_hodograph(metrics):
     """Gera o hodógrafo com convenções do Hemisfério Sul, fundo branco e sem anotações manuais."""
-    df = parse_sounding_file('metpack/sounding_19951224_12Z.txt')
+    df = parse_sounding_file('metpack/sounding_20260828_12Z.txt')
     if df is None:
         return
 
-    m = metrics.get('19951224_raw', {})
+    m = metrics.get('20260828_raw', metrics.get('19951224_raw', {}))
     p = df['p'].values * units.hPa
     u, v = mpcalc.wind_components(df['sknt'].values * units.knot, df['drct'].values * units.deg)
     z = df['z'].values * units.meter
@@ -802,7 +800,7 @@ def generate_kinematics_hodograph(metrics):
     ax.set_ylim(-40, 40)
     ax.set_xlabel("Componente Zonal U (m/s)", fontsize=11, fontweight='bold')
     ax.set_ylabel("Componente Meridional V (m/s)", fontsize=11, fontweight='bold')
-    ax.set_title("Hodógrafo do Vento Horizontal & Vetores de Bunkers LM/RM (Hemisfério Sul)\nSBPA Porto Alegre — 24/12/1995 12Z", 
+    ax.set_title("Hodógrafo do Vento Horizontal & Vetores de Bunkers LM/RM (Hemisfério Sul)\nSBFL Florianópolis (83899) — 28/08/2026 12Z (Granizo Gigante)", 
                  fontsize=12, fontweight='bold', color='#0f172a', pad=12)
     ax.legend(loc='upper right', fontsize=8.5, framealpha=0.92)
 

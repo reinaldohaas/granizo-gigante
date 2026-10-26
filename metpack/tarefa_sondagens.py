@@ -31,9 +31,9 @@ from tcon_emanuel import tcon_emanuel
 
 CASOS = [
     # regime       estação  (ano, mês, dia, hora UTC)
-    ('ESTÁVEL',    83971,   (1995, 12, 12, 12)),
-    ('NEUTRA',     83971,   (1995, 12, 22, 12)),
-    ('INSTÁVEL',   83971,   (1995, 12, 24, 12)),
+    ('ESTÁVEL',    83899,   (2026, 8, 26, 12)),
+    ('NEUTRA',     83899,   (2026, 8, 31, 0)),
+    ('INSTÁVEL',   83899,   (2026, 8, 28, 12)),
 ]
 CORTE_EMANUEL = False   # False = sem o piso artificial de -4 K do wyoming.f original
 

@@ -20,9 +20,9 @@ clear; close all;
 
 CASOS = {
 %   regime        estação   [ano mês dia hora UTC]
-    'ESTÁVEL',    83971,    [1995 12 12 12];
-    'NEUTRA',     83971,    [1995 12 22 12];
-    'INSTÁVEL',   83971,    [1995 12 24 12];
+    'ESTÁVEL',    83899,    [2026 08 26 12];
+    'NEUTRA',     83899,    [2026 08 31 00];
+    'INSTÁVEL',   83899,    [2026 08 28 12];
 };
 CORTE_EMANUEL = false;   % false = sem o piso artificial de -4 K do wyoming.f original
 

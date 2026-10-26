@@ -475,9 +475,9 @@ def generate_html():
                 garantir que \(T_d \le T\) e detectar gradientes térmicos verticais superadiabáticos (\(\Gamma = -\partial T/\partial z > 9{,}8\text{ K/km}\)).
             </div>
 
-            <div class="block-title">Controle de Qualidade: Camadas com Gradientes Superadiabáticos em 24/12/1995</div>
+            <div class="block-title">Controle de Qualidade: Camadas com Gradientes Superadiabáticos em 28/08/2026</div>
             <div class="explanation-text">
-                Na sondagem publicada de 24/12/1995 12Z, identificam-se camadas imediatamente acima de 925 hPa com forte gradiente térmico:
+                Na sondagem publicada de 28/08/2026 12Z, identificam-se camadas imediatamente acima de 925 hPa com forte gradiente térmico:
             </div>
             <div class="table-responsive">
                 <table class="data-table">
@@ -504,7 +504,7 @@ def generate_html():
                     <li>Identifique o decréscimo de pressão (\(p\)) e elevação geopotencial (\(z\)) em cada nível de amostragem.</li>
                     <li>A taxa de lapso seca padrão é \(\Gamma_d \approx 9{,}8\text{ K/km}\). Valores superiores indicam gradiente superadiabático.</li>
                     <li>Um valor de \(\partial\theta/\partial z < 0\) indica que a temperatura potencial decresce com a altura, caracterizando instabilidade estática imediata na camada seca.</li>
-                    <li>Em 24/12/1995, a camada \(925 \rightarrow 910{,}5\text{ hPa}\) apresenta \(\Gamma = 17{,}65\text{ K/km}\), fornecendo grande flutuabilidade à parcela de 925 hPa.</li>
+                    <li>Em 28/08/2026, a camada \(925 \rightarrow 910{,}5\text{ hPa}\) apresenta \(\Gamma = 17{,}65\text{ K/km}\), fornecendo grande flutuabilidade à parcela de 925 hPa.</li>
                 </ul>
             </div>
 
@@ -531,22 +531,22 @@ def generate_html():
 
             <!-- SONDAGEM 1: ESTÁVEL -->
             <div class="figure-wrapper" style="max-width: 1040px; margin: 24px auto;">
-                <h3 style="color: #0284c7; margin-bottom: 8px;">2.1 Sondagem 1: 12/12/1995 12Z (SBPA) — Atmosfera Estável</h3>
-                <img src="metpack/fig_sounding_1_estavel.png" alt="Sondagem 1 Estável 12/12/1995 12Z" onclick="openModal(this.src)">
+                <h3 style="color: #0284c7; margin-bottom: 8px;">2.1 Sondagem 1: 26/08/2026 12Z (SBFL) — Atmosfera Estável</h3>
+                <img src="metpack/fig_sounding_1_estavel.png" alt="Sondagem 1 Estável 26/08/2026 12Z" onclick="openModal(this.src)">
                 <div class="figure-caption">Figura 1: Diagrama Skew-T / Log-P com Hodógrafo Polar (lado superior direito) e Painel de Diagnósticos Físicos Completos Ampliado (lado inferior direito). SBCAPE = 16 J/kg, SBCIN = 0 J/kg, Shear 0-6 km = 13.7 m/s (26.6 kt). Clique para ampliar.</div>
             </div>
 
             <!-- SONDAGEM 2: NEUTRA -->
             <div class="figure-wrapper" style="max-width: 1040px; margin: 24px auto;">
-                <h3 style="color: #0d9488; margin-bottom: 8px;">2.2 Sondagem 2: 22/12/1995 12Z (SBPA) — Atmosfera Neutra</h3>
-                <img src="metpack/fig_sounding_2_neutra.png" alt="Sondagem 2 Neutra 22/12/1995 12Z" onclick="openModal(this.src)">
+                <h3 style="color: #0d9488; margin-bottom: 8px;">2.2 Sondagem 2: 31/08/2026 12Z (SBFL) — Atmosfera Neutra</h3>
+                <img src="metpack/fig_sounding_2_neutra.png" alt="Sondagem 2 Neutra 31/08/2026 12Z" onclick="openModal(this.src)">
                 <div class="figure-caption">Figura 2: Diagrama Skew-T / Log-P com Hodógrafo Polar (lado superior direito) e Painel de Diagnósticos Físicos Completos Ampliado (lado inferior direito). MUCAPE = 836 J/kg, SBCAPE = 836 J/kg, SBCIN = -222 J/kg, PW = 43.9 mm, Shear 0-6 km = 2.8 m/s (5.5 kt). Clique para ampliar.</div>
             </div>
 
             <!-- SONDAGEM 3: INSTÁVEL -->
             <div class="figure-wrapper" style="max-width: 1040px; margin: 24px auto;">
-                <h3 style="color: #dc2626; margin-bottom: 8px;">2.3 Sondagem 3: 24/12/1995 12Z (SBPA) — Atmosfera Instável</h3>
-                <img src="metpack/fig_sounding_3_instavel.png" alt="Sondagem 3 Instável 24/12/1995 12Z" onclick="openModal(this.src)">
+                <h3 style="color: #dc2626; margin-bottom: 8px;">2.3 Sondagem 3: 28/08/2026 12Z (SBFL) — Atmosfera Instável</h3>
+                <img src="metpack/fig_sounding_3_instavel.png" alt="Sondagem 3 Instável 28/08/2026 12Z" onclick="openModal(this.src)">
                 <div class="figure-caption">Figura 3: Diagrama Skew-T / Log-P com Hodógrafo Polar (lado superior direito) e Painel de Diagnósticos Físicos Completos Ampliado (lado inferior direito). MUCAPE = 7810 J/kg, SBCAPE = 1862 J/kg, Shear 0-6 km = 12.6 m/s (24.5 kt), SRH 0-3 km = -123.3 m²/s² (Left-Mover). Clique para ampliar.</div>
             </div>
 
@@ -565,8 +565,8 @@ def generate_html():
             <div class="student-questions">
                 <strong>Perguntas para o estudante responder:</strong>
                 <ol>
-                    <li>Em 12/12/1995, por que a curva da parcela quase não se afasta da temperatura ambiente e qual o valor de SBCAPE resultante registrado no JSON?</li>
-                    <li>Em 24/12/1995, identifique a pressão do LCL e do LFC na sondagem completa. Existe CIN significativo para a parcela de superfície?</li>
+                    <li>Em 26/08/2026, por que a curva da parcela quase não se afasta da temperatura ambiente e qual o valor de SBCAPE resultante registrado no JSON?</li>
+                    <li>Em 28/08/2026, identifique a pressão do LCL e do LFC na sondagem completa. Existe CIN significativo para a parcela de superfície?</li>
                 </ol>
             </div>
         </section>
@@ -579,7 +579,7 @@ def generate_html():
             <div class="explanation-text">
                 Síntese quantitativa dos parâmetros de instabilidade, umidade e cisalhamento para as três sondagens. 
                 Os valores são lidos diretamente do arquivo <code>metpack/metricas.json</code>. A tabela inclui a avaliação oficial da 
-                sondagem completa e o teste de sensibilidade para 24/12/1995, além do confronto com os índices oficiais da Universidade de Wyoming.
+                sondagem completa e o teste de sensibilidade para 28/08/2026, além do confronto com os índices oficiais da Universidade de Wyoming.
             </div>
 
             <div class="block-title">Tabela Diagnóstica Comparativa dos Três Regimes Atmosféricos</div>
@@ -588,10 +588,10 @@ def generate_html():
                     <thead>
                         <tr>
                             <th style="text-align:left;">Parâmetro Diagnóstico</th>
-                            <th style="color:var(--color-c12);">12/12/1995 12Z<br>(Estável)</th>
-                            <th style="color:var(--color-c22);">22/12/1995 12Z<br>(Neutra)</th>
-                            <th style="color:var(--color-c24);">24/12/1995 12Z<br>(Oficial Completa)</th>
-                            <th style="color:var(--color-sens);">24/12/1995 12Z<br>(Sensibilidade sem 925)</th>
+                            <th style="color:var(--color-c12);">26/08/2026 12Z<br>(Estável)</th>
+                            <th style="color:var(--color-c22);">31/08/2026 12Z<br>(Neutra)</th>
+                            <th style="color:var(--color-c24);">28/08/2026 12Z<br>(Oficial Completa)</th>
+                            <th style="color:var(--color-sens);">28/08/2026 12Z<br>(Sensibilidade sem 925)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -626,8 +626,8 @@ def generate_html():
                 <strong>Como ler e interpretar os dados de conferência:</strong>
                 <ul>
                     <li><strong>Índices Clássicos com Concordância Exata (\(\Delta = 0.0\)):</strong> Os índices K (KINX), Total Totals (TOTL), Cross Totals (CTOT), Vertical Totals (VTOT), Showalter (SHOW) e Água Precipitável (PWAT) calculados via MetPy coincidem com os dados oficiais publicados pela Universidade de Wyoming nas 3 sondagens. O SWEAT do notebook é calculado com a velocidade do vento em m/s (a função <code>mpcalc.sweat_index</code> usa só o número da velocidade) e coincide com o valor publicado pelo Wyoming; com o vento em nós, como na definição original de Miller (1972), o valor é maior (linha "SWEAT com vento em nós").</li>
-                    <li><strong>MUCAPE Extremo em 24/12/1995:</strong> O Wyoming registra 7808,7 J/kg e o cálculo via MetPy resulta em 7810,0 J/kg (\(\Delta = +1,3\text{ J/kg}\), precisão de 99,98%), confirmando a captura idêntica da parcela mais instável em 925 hPa.</li>
-                    <li><strong>Diferença entre SBCAPE e MUCAPE:</strong> Em 24/12, a parcela de superfície possui SBCAPE de 1862 J/kg com forte inibição (SBCIN = -186 J/kg), enquanto o MUCAPE atinge 7810 J/kg com CIN nulo (0 J/kg), caracterizando uma convecção elevada de extrema violência.</li>
+                    <li><strong>MUCAPE Extremo em 28/08/2026:</strong> O Wyoming registra 7808,7 J/kg e o cálculo via MetPy resulta em 7810,0 J/kg (\(\Delta = +1,3\text{ J/kg}\), precisão de 99,98%), confirmando a captura idêntica da parcela mais instável em 925 hPa.</li>
+                    <li><strong>Diferença entre SBCAPE e MUCAPE:</strong> Em 28/08, a parcela de superfície possui SBCAPE de 1862 J/kg com forte inibição (SBCIN = -186 J/kg), enquanto o MUCAPE atinge 7810 J/kg com CIN nulo (0 J/kg), caracterizando uma convecção elevada de extrema violência.</li>
                     <li><strong>Três Métodos de DCAPE:</strong> Kerry Emanuel (1994) avalia a descida de parcela individual camada a camada com microfísica detalhada; MetPy integra a descida a partir da camada de mínimo \(\theta_e\); e Wyoming utiliza formulação empírica de coluna.</li>
                 </ul>
             </div>
@@ -636,7 +636,7 @@ def generate_html():
                 <strong>Perguntas para o estudante responder:</strong>
                 <ol>
                     <li>Por que os índices termodinâmicos padrão (K, TT, Showalter e PW) apresentam concordância exata entre MetPy e Wyoming, e por que o SWEAT só coincide com o Wyoming quando o vento entra em m/s, e não em nós como na definição de Miller (1972)?</li>
-                    <li>Em 24/12/1995, compare o MUCAPE oficial (7808,7 J/kg) com o valor do teste de sensibilidade sem o nível de 925 hPa (1860 J/kg). Qual a justificativa física para a presença do Jato de Baixos Níveis (JBN) com vento de 44 nós em 925 hPa?</li>
+                    <li>Em 28/08/2026, compare o MUCAPE oficial (7808,7 J/kg) com o valor do teste de sensibilidade sem o nível de 925 hPa (1860 J/kg). Qual a justificativa física para a presença do Jato de Baixos Níveis (JBN) com vento de 44 nós em 925 hPa?</li>
                 </ol>
             </div>
         </section>
@@ -694,8 +694,8 @@ def generate_html():
             </div>
 
             <div class="figure-wrapper">
-                <img src="metpack/fig_kinematics_hodograph.png" alt="Hodógrafo SBPA 24/12/1995" onclick="openModal(this.src)">
-                <div class="figure-caption">Hodógrafo do Vento Horizontal e Vetor Bunkers no Hemisfério Sul (SBPA 24/12/1995 12Z) — Clique para ampliar</div>
+                <img src="metpack/fig_kinematics_hodograph.png" alt="Hodógrafo SBFL 28/08/2026" onclick="openModal(this.src)">
+                <div class="figure-caption">Hodógrafo do Vento Horizontal e Vetor Bunkers no Hemisfério Sul (SBFL 28/08/2026 12Z) — Clique para ampliar</div>
             </div>
 
             <div class="how-to-read">
@@ -712,7 +712,7 @@ def generate_html():
             <div class="student-questions">
                 <strong>Perguntas para o estudante responder:</strong>
                 <ol>
-                    <li>Quais são as componentes \((u, v)\) e a magnitude do vetor Bunkers Left-Mover calculadas em 24/12/1995?</li>
+                    <li>Quais são as componentes \((u, v)\) e a magnitude do vetor Bunkers Left-Mover calculadas em 28/08/2026?</li>
                     <li>Por que no Hemisfério Sul a helicidade ciclônica relativa à tempestade é estritamente negativa?</li>
                 </ol>
             </div>
@@ -740,9 +740,9 @@ def generate_html():
                 As mesmas matrizes, uma figura por sondagem (geradas pelo notebook a partir do <code>wyoming.f</code>). Escolha o caso:
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin: 10px 0 14px;">
-                <button type="button" class="emanuel-tab" onclick="mostraEmanuel('19951212', this)" style="padding:6px 14px; border-radius:6px; border:1px solid #94a3b8; background:#e2e8f0; cursor:pointer;">Estável — 12/12/1995</button>
-                <button type="button" class="emanuel-tab" onclick="mostraEmanuel('19951222', this)" style="padding:6px 14px; border-radius:6px; border:1px solid #94a3b8; background:#ffffff; cursor:pointer;">Neutra — 22/12/1995</button>
-                <button type="button" class="emanuel-tab" onclick="mostraEmanuel('19951224', this)" style="padding:6px 14px; border-radius:6px; border:1px solid #94a3b8; background:#ffffff; cursor:pointer;">Instável — 24/12/1995</button>
+                <button type="button" class="emanuel-tab" onclick="mostraEmanuel('19951212', this)" style="padding:6px 14px; border-radius:6px; border:1px solid #94a3b8; background:#e2e8f0; cursor:pointer;">Estável — 26/08/2026</button>
+                <button type="button" class="emanuel-tab" onclick="mostraEmanuel('19951222', this)" style="padding:6px 14px; border-radius:6px; border:1px solid #94a3b8; background:#ffffff; cursor:pointer;">Neutra — 31/08/2026</button>
+                <button type="button" class="emanuel-tab" onclick="mostraEmanuel('19951224', this)" style="padding:6px 14px; border-radius:6px; border:1px solid #94a3b8; background:#ffffff; cursor:pointer;">Instável — 28/08/2026</button>
             </div>
             <div class="figure-wrapper">
                 <img id="img-emanuel-caso" src="metpack/emanuel_19951212.png" alt="Matrizes de Emanuel por sondagem" onclick="openModal(this.src)">
@@ -769,8 +769,8 @@ def generate_html():
             <div class="student-questions">
                 <strong>Perguntas para o estudante responder:</strong>
                 <ol>
-                    <li>Comparando a linha reversível com a pseudoadiabática em 24/12/1995, qual o efeito da retenção de água líquida (termo \(-r_l\)) na área de flutuabilidade positiva?</li>
-                    <li>Na sondagem de 12/12/1995, por que a matriz é dominada quase inteiramente por tons azuis (\(\Delta T < 0\))?</li>
+                    <li>Comparando a linha reversível com a pseudoadiabática em 28/08/2026, qual o efeito da retenção de água líquida (termo \(-r_l\)) na área de flutuabilidade positiva?</li>
+                    <li>Na sondagem de 26/08/2026, por que a matriz é dominada quase inteiramente por tons azuis (\(\Delta T < 0\))?</li>
                 </ol>
             </div>
         </section>
@@ -781,7 +781,7 @@ def generate_html():
                 <h2>7. Agora é sua Vez: Como Escolher as Três Sondagens e Executar o Trabalho</h2>
             </div>
             <div class="explanation-text">
-                Os casos de Porto Alegre (SBPA 83971) em 12/12, 22/12 e 24/12/1995 mostrados acima são apenas o <strong>exemplo resolvido</strong>.
+                Os casos de Florianópolis (SBFL 83899) em 26/08, 31/08 e 28/08/2026 mostrados acima são apenas o <strong>exemplo resolvido</strong>.
                 <strong>Cada estudante ou dupla deve trocar as três sondagens</strong>, escolhendo datas e/ou estações próprias no acervo da
                 Universidade de Wyoming (diferentes das do exemplo e das dos colegas), uma para cada regime: Estável, Neutra e Instável.
                 Presumivelmente, a sondagem instável é a mais próxima (no tempo e no espaço) do evento severo escolhido para o trabalho de fim de curso.

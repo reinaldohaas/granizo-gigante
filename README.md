@@ -1,4 +1,5 @@
-# 🌪️ Tutorial de Meteorologia de Mesoescala: Diagnóstico Tríplice & Análise Termodinâmica
+# 🌪️ Diagnóstico de Mesoescala: Caso Granizo Gigante em Florianópolis (28/08/2026)
+### Análise Termodinâmica e Cinemática de Três Regimes Troposféricos
 
 **Disciplina:** FSC7116 — Meteorologia de Mesoescala  
 **Docente:** Prof. Dr. Reinaldo Haas  
@@ -14,9 +15,9 @@
 
 Este repositório é um tutorial prático e reprodutível para análise termodinâmica e cinemática de radiossondagens observadas na América do Sul. A tarefa consiste em diagnosticar comparativamente **três regimes atmosféricos observados distintos**:
 
-1. **Atmosfera Estável:** Perfil com inversão ou forte estabilidade térmica, inibição de flutuabilidade positiva e ausência de convecção profunda. *(Exemplo do tutorial: Porto Alegre — SBPA 83971 em 12/12/1995 12Z)*.
-2. **Atmosfera Neutra:** Perfil com umedecimento progressivo da troposfera e flutuabilidade moderada. *(Exemplo do tutorial: Porto Alegre — SBPA 83971 em 22/12/1995 12Z)*.
-3. **Atmosfera Instável:** Perfil com elevado empuxo térmico, gradiente vertical de $\theta_e$ decrescente com a altura, forte influxo úmido em baixos níveis e suporte cinemático. *(Exemplo do tutorial: Porto Alegre — SBPA 83971 em 24/12/1995 12Z)*.
+1. **Atmosfera Estável:** Perfil com forte estabilidade térmica, estratificação hidrostática estável com $N^2 > 0$ e ausência de convecção profunda *(Florianópolis — SBFL 83899 em 26/08/2026 12Z — SBCAPE: 8.1 J/kg, MUCAPE: 0 J/kg, PW: 27.1 mm)*.
+2. **Atmosfera Neutra:** Perfil de transição pós-frontal úmida com flutuabilidade moderada em altitude *(Florianópolis — SBFL 83899 em 31/08/2026 00Z — MUCAPE: 267.1 J/kg, PW: 45.8 mm)*.
+3. **Atmosfera Instável:** Ambiente pré-convectivo precursor do temporal severo de granizo gigante, com forte gradiente vertical de $\theta_e$, elevado CAPE e intenso cisalhamento vertical *(Florianópolis — SBFL 83899 em 28/08/2026 12Z — MUCAPE: 1303.5 J/kg, SBCAPE: 442.8 J/kg, PW: 40.9 mm)*.
 
 > **Importante:** os casos de Porto Alegre (dezembro de 1995) são só o **exemplo resolvido**. Cada aluno ou dupla troca as três sondagens pelas suas; presumivelmente, a instável é a mais próxima do evento severo escolhido para o trabalho de fim de curso. Os valores citados devem sair da sua execução.
 
