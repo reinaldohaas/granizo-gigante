@@ -780,21 +780,13 @@ Ressaltamos para os previsores da Defesa Civil a importância de utilizar produt
         p_r.font.color.rgb = C_MUTED
         p_r.space_before = Pt(2)
 
-    p_close = tf_ref.add_paragraph()
-    p_close.text = "Fechamento & Agradecimentos:"
-    p_close.font.size = Pt(11.5)
-    p_close.font.bold = True
-    p_close.font.color.rgb = C_EMERALD
-    p_close.space_before = Pt(10)
-
     p_closet = tf_ref.add_paragraph()
-    p_closet.text = "Agradeço ao Professor Dr. Reinaldo Haas pela orientação acadêmica e aos previsores da Defesa Civil de SC pela atenção técnica dispensada.\n\n" \
-                    "O código-fonte completo (notebook, wyoming.f, tarefa_sondagens.py/.m, calc_metricas.py, generate_figures.py e tutorial interativo) encontra-se disponível no repositório GitHub:\n" \
+    p_closet.text = "O código-fonte completo (notebook, wyoming.f, tarefa_sondagens.py/.m, calc_metricas.py, generate_figures.py e tutorial interativo) encontra-se disponível no repositório GitHub:\n" \
                     "https://github.com/reinaldohaas/tarefa-meso\n\n" \
                     "Estou à disposição para as perguntas e considerações técnicas dos previsores da Defesa Civil de SC."
     p_closet.font.size = Pt(9.5)
     p_closet.font.color.rgb = C_WHITE
-    p_closet.space_before = Pt(3)
+    p_closet.space_before = Pt(10)
 
     set_speaker_notes(s10, f"""ROTEIRO DO ORADOR (18:30 - 20:00):
 Chegamos à conclusão com a tabela síntese consolidada a partir do arquivo único metricas.json.
@@ -803,7 +795,7 @@ Os diagnósticos demonstram o contraste entre os três regimes:
 2. O caso de 31/08 apresentou umidade intermediária e SBCAPE moderado ({m22['sbcape_Jkg']:.0f} J/kg), com inibição convectiva significativa ({m22['sbcin_Jkg']:.1f} J/kg).
 3. O caso de 28/08 reuniu alto teor de vapor ({m24_raw['pw_mm']:.1f} mm), vento intenso em baixos níveis ({m24_raw['wind_925_spd_kt']:.0f} kt em 925 hPa), bulk shear 0-6 km de {m24_raw['bulk_shear_0_6km_ms']:.1f} m/s e helicidade SRH 0-3 km de {m24_raw['srh_0_3km_lm_m2s2']:.1f} m²/s² com o vetor Bunkers Left-Mover relevante para o Hemisfério Sul.
 
-Agradeço ao Professor Reinaldo Haas e aos previsores da Defesa Civil de SC. Concluo no tempo regulamentar e coloco-me à disposição para a discussão técnica e operacional.""")
+Concluo no tempo regulamentar e coloco-me à disposição para a discussão técnica e operacional.""")
 
     out_pptx = "apresentacao_meso.pptx"
     prs.save(out_pptx)
