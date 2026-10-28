@@ -1,0 +1,428 @@
+<title>Granizo de 29 de agosto em SC</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Células de granizo que cruzaram Santa Catarina em 29/08/2026: trajetórias por raios, radar, satélite, simulação WRF, aerossol e clima espacial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+<style>
+/* Layout: coluna de leitura de ~68ch com mapa e gráficos que se alargam até 1180px; navegação fixa por seção. */
+:root {
+  --bg: #f4f6f8; --surface: #ffffff; --ink: #14202e; --ink-2: #445366; --muted: #66758a; --rule: #d9dee5;
+  --accent: #b5127f; --ep1: #2a78d6; --ep2: #eb6834; --ep3: #1baf7a; --grade: #e6eaef; --faixa: rgba(181,18,127,0.10);
+  --f-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1520; --surface: #151f2d; --ink: #e9eef4; --ink-2: #b7c3d1; --muted: #8d9aab; --rule: #2a3748;
+  --accent: #f07bc8; --ep1: #3987e5; --ep2: #d95926; --ep3: #199e70; --grade: #223042; --faixa: rgba(240,123,200,0.14); color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0e1520; --surface: #151f2d; --ink: #e9eef4; --ink-2: #b7c3d1; --muted: #8d9aab; --rule: #2a3748;
+  --accent: #f07bc8; --ep1: #3987e5; --ep2: #d95926; --ep3: #199e70; --grade: #223042; --faixa: rgba(240,123,200,0.14); color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 64px }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg) }
+a { color: var(--accent) }
+a:focus-visible, button:focus-visible, input:focus-visible, label:focus-within { outline: 2px solid var(--accent); outline-offset: 2px }
+.largo { max-width: 1180px; margin-inline: auto }
+.texto { max-width: 68ch }
+nav.secoes { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule);
+  display: flex; gap: 18px; overflow-x: auto; padding-block: 10px; font-family: var(--f-display); font-size: 17px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap }
+nav.secoes a { color: var(--ink-2); text-decoration: none }
+nav.secoes a:hover { color: var(--accent) }
+header.abre { padding-block: 56px 32px; display: grid; gap: 20px }
+.rotulo { font-family: var(--f-mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(42px, 7vw, 84px); line-height: .98; margin: 0; text-wrap: balance; letter-spacing: -.01em }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: clamp(30px, 4vw, 44px); line-height: 1.05; margin: 0; text-wrap: balance }
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 24px; margin: 0; letter-spacing: .01em }
+.lead { font-size: 20px; color: var(--ink-2); max-width: 62ch; margin: 0 }
+section { padding-block: 56px 8px; display: grid; gap: 22px; scroll-margin-top: 56px }
+p { margin: 0 }
+.numeros { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule) }
+.numeros div { padding: 16px 18px 18px 0; display: grid; gap: 4px; min-width: 0 }
+.numeros b { font-family: var(--f-display); font-size: 46px; line-height: 1; font-weight: 600; font-variant-numeric: tabular-nums }
+.numeros span { color: var(--ink-2); font-size: 15px }
+.episodios { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px }
+.ep { background: var(--surface); border: 1px solid var(--rule); border-top: 5px solid var(--c); padding: 18px 20px; display: grid; gap: 8px; align-content: start; min-width: 0 }
+.ep .quando { font-family: var(--f-mono); font-size: 13px; color: var(--muted) }
+.ep button { justify-self: start }
+button { font: 600 15px var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--rule); padding: 7px 14px; cursor: pointer; border-radius: 3px }
+button:hover { border-color: var(--accent); color: var(--accent) }
+.painel-mapa { background: var(--surface); border: 1px solid var(--rule); display: grid; gap: 0 }
+.controles { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--rule) }
+.relogio { font-family: var(--f-mono); font-size: 15px; font-variant-numeric: tabular-nums; min-width: 23ch }
+.relogio b { font-size: 20px }
+input[type=range] { flex: 1 1 260px; accent-color: var(--accent) }
+.camadas { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 16px; border-bottom: 1px solid var(--rule); font-size: 15px; color: var(--ink-2) }
+.camadas label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer }
+#mapa { height: min(68vh, 640px); min-height: 380px }
+.legenda { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 10px 16px; font-size: 14px; color: var(--ink-2) }
+.legenda i { display: inline-block; width: 22px; height: 4px; vertical-align: middle; margin-right: 6px; background: var(--c) }
+.legenda i.tri { width: 0; height: 0; background: none; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid var(--accent) }
+.grafico { background: var(--surface); border: 1px solid var(--rule); min-width: 0 }
+.grafico > div { height: 380px }
+.grafico.alto > div { height: 760px }
+.nota { font-size: 15px; color: var(--muted); max-width: 80ch }
+.tabela { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule) }
+table { border-collapse: collapse; width: 100%; font-size: 15px; font-variant-numeric: tabular-nums }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); vertical-align: top }
+th { font-family: var(--f-mono); font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); position: sticky; top: 0 }
+td.n { text-align: right; white-space: nowrap }
+tr.destaque td { font-weight: 600 }
+.duas { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; align-items: start }
+.duas > * { min-width: 0 }
+figure { margin: 0; display: grid; gap: 8px }
+figure img { width: 100%; border: 1px solid var(--rule); display: block }
+figcaption { font-size: 14px; color: var(--muted) }
+.chip { display: inline-block; font-family: var(--f-mono); font-size: 12px; padding: 2px 8px; border: 1px solid var(--rule); border-radius: 20px; color: var(--ink-2) }
+.chip.ok { border-color: var(--ep3); color: var(--ink) }
+.chip.nao { border-color: var(--ep2); color: var(--ink) }
+ul.ressalvas { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch }
+footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); display: grid; gap: 6px }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important } }
+</style>
+
+<nav class="secoes largo" aria-label="Seções">
+  <a href="#dia">O dia</a><a href="#mapa-sec">Trajetórias</a><a href="#relatos">Relatos</a><a href="#ilha">A célula da Ilha</a>
+  <a href="#modelo">Simulação</a><a href="#aerossol">Aerossol</a><a href="#espaco">Clima espacial</a><a href="#testes">Testes</a><a href="#fontes">Fontes</a>
+</nav>
+
+<main class="largo">
+<header class="abre">
+  <p class="rotulo">Santa Catarina · 28 a 30 de agosto de 2026</p>
+  <h1>Granizo de oeste a leste: as células de 29 de agosto</h1>
+  <p class="lead">Granizo caiu na madrugada no oeste, de manhã no Meio-Oeste e no fim da tarde na Grande Florianópolis, com pedras de até ~6 cm em Biguaçu. Esta página reconstrói por onde as células andaram e o que o ambiente, o modelo e a atividade solar mostram sobre o porquê.</p>
+  <div class="numeros" id="numeros">
+    <div><b id="n-km">—</b><span>maior percurso de uma célula com granizo relatado</span></div>
+    <div><b id="n-vel">—</b><span>velocidade típica, rumo leste</span></div>
+    <div><b>~6 cm</b><span>maior pedra, Biguaçu; 4–6 cm no norte da Ilha</span></div>
+    <div><b>3</b><span>episódios com granizo no mesmo dia</span></div>
+  </div>
+</header>
+
+<section id="dia">
+  <p class="rotulo">O dia em três episódios</p>
+  <h2>Células nascem no oeste e na Argentina e cruzam o estado a ~20 m/s</h2>
+  <p class="texto">Os radares do DECEA não alcançam o oeste de SC neste dia, então as trajetórias vêm dos raios do GLM (GOES-19): flashes agrupados a cada 10 min e ligados de um intervalo ao seguinte. Cada episódio abaixo é a célula que passou a até 25 km do município, na janela do relato.</p>
+  <div class="episodios" id="episodios"></div>
+</section>
+
+<section id="mapa-sec">
+  <p class="rotulo">Mapa interativo</p>
+  <h2>Por onde andaram as células</h2>
+  <div class="painel-mapa">
+    <div class="controles">
+      <button id="play" type="button" aria-pressed="false">▶ Animar</button>
+      <input id="tempo" type="range" min="0" max="216" value="85" step="1" aria-label="Horário">
+      <span class="relogio" id="relogio"></span>
+    </div>
+    <div class="camadas" role="group" aria-label="Camadas">
+      <label><input type="checkbox" id="c-ep" checked> trajetórias com granizo</label>
+      <label><input type="checkbox" id="c-todas"> todas as trajetórias (≥ 1 h)</label>
+      <label><input type="checkbox" id="c-cel" checked> células com raios na última hora</label>
+      <label><input type="checkbox" id="c-mun" checked> municípios com granizo</label>
+      <label><input type="checkbox" id="c-radar"> núcleos do radar Morro da Igreja</label>
+      <label><input type="checkbox" id="c-wrf"> WRF d02 ≥ 50 dBZ e seu domínio</label>
+    </div>
+    <div id="mapa" role="img" aria-label="Mapa de Santa Catarina com as trajetórias das células"></div>
+    <div class="legenda" id="legenda"></div>
+  </div>
+  <p class="nota">Horários em UTC; hora local = UTC − 3. Tamanho do círculo = flashes no intervalo de 10 min; os mais antigos ficam mais claros. O domínio de 3 km do WRF (d02) começa em ~51°W: o oeste do estado não está na grade que simula granizo.</p>
+</section>
+
+<section id="relatos">
+  <p class="rotulo">Relatos e passagem das células</p>
+  <h2>Cada relato tem uma célula com raios por cima, na hora certa</h2>
+  <div class="tabela"><table id="tab-relatos"><thead><tr><th>Município</th><th>Relato</th><th>Trajetória</th><th>Passagem (UTC)</th><th>Distância</th><th>Nasceu</th><th>Percurso</th></tr></thead><tbody></tbody></table></div>
+  <p class="nota">Relatos sem hora (Lages, Bom Retiro) e os danos da noite de 30/08 (Campo Erê, Centro de Florianópolis) ficam fora do cruzamento. São José do Cedro e Princesa, no extremo-oeste, estão no caminho das trajetórias 65 e 81, mas a fonte não dá a data.</p>
+</section>
+
+<section id="ilha">
+  <p class="rotulo">A célula da Ilha</p>
+  <h2>Nasceu na Serra às 20:10 UTC e não veio do oeste</h2>
+  <div class="duas">
+    <div class="texto" style="display:grid;gap:14px">
+      <p>A trajetória 185 começa em 50,1°W / 27,5°S, na borda da Serra Geral. O radar do Morro da Igreja mostra o núcleo nascendo às 20:36 no mesmo lugar. Nenhuma trajetória do oeste termina a menos de 127 km desse ponto antes disso.</p>
+      <p>Ela anda para leste a ~16 m/s, passa por Biguaçu às 22:10 e pelo norte da Ilha às 22:30, como os relatos e o radar (22:16). Corre na mesma faixa de latitude, 27,3–27,5°S, onde as células de Joaçaba e Campos Novos tinham passado de manhã.</p>
+      <p>Uma reportagem cita granizo em Biguaçu “por volta das 18h”, o que seriam 21 UTC. Os raios e o radar põem a célula sobre Biguaçu às 22:10–22:16 UTC.</p>
+    </div>
+    <div class="grafico"><div id="g-goes" role="img" aria-label="Temperatura de brilho mínima e flashes sobre a Ilha"></div></div>
+  </div>
+  <p class="nota">Topo mais frio: −62,9 °C sobre o norte da Ilha às 22:20 UTC. Não se distinguiu de outras células da noite, e não houve sinal de topo penetrante nos canais do GOES-19.</p>
+</section>
+
+<section id="modelo">
+  <p class="rotulo">Simulação</p>
+  <h2>O WRF reproduz a célula da Ilha só com Grell-Freitas na grade de 9 km</h2>
+  <div class="duas">
+    <figure><img src="__IMG3D__" alt="Vista 3D da tempestade simulada pelo WRF às 19:30 UTC: núcleo de graupel em magenta, chuva em azul, nuvem em branco e trilha do HAILCAST no chão"><figcaption>WRF-Chem 4.7.1, grade de 1 km, 19:30 UTC. Magenta: graupel ≥ 7 g/kg; azul: chuva; trilha amarela a vermelha: HAILCAST de 5 a 50 mm.</figcaption></figure>
+    <div class="texto" style="display:grid;gap:14px">
+      <p>Grades de 9, 3 e 1 km, Morrison de 2 momentos (sem categoria de granizo), HAILCAST, ERA5 como condição inicial. A rodada de controle põe uma célula com granizo de 49,8 mm no Vale do Tijucas às 19:30, umas 2 h antes e ~25–30 km ao norte da observada.</p>
+      <p>Dois mini-ensembles (oito membros) testaram cumulus, camada limite, horário de início e perturbações estocásticas. Só os três com Grell-Freitas no d01 põem a célula no lugar às 21:16 e geram granizo perto da Ilha; nenhum chega aos 5–6 cm, e todos disparam convecção cedo demais.</p>
+      <p>As grades de 3 e 1 km não incluem o oeste: o modelo, como está, não simula as células da madrugada e da manhã.</p>
+    </div>
+  </div>
+  <div class="tabela"><table>
+    <thead><tr><th>Rodada</th><th>Muda</th><th>Convecção cedo no d02</th><th>Distância ao radar 21:16</th><th>Distância 22:16</th><th>Granizo perto da Ilha</th></tr></thead>
+    <tbody>
+      <tr><td>22/10</td><td>controle</td><td class="n">1.152</td><td class="n">24 km</td><td class="n">1 km</td><td class="n">0 mm</td></tr>
+      <tr><td>E0</td><td>controle, d03 a oeste</td><td class="n">1.251</td><td class="n">24 km</td><td class="n">5 km</td><td class="n">0 mm</td></tr>
+      <tr><td>E1</td><td>camada limite MYNN</td><td class="n">563</td><td class="n">41 km</td><td class="n">1 km</td><td class="n">0 mm</td></tr>
+      <tr><td>E2</td><td>início às 06Z</td><td class="n">840</td><td class="n">34 km</td><td class="n">18 km</td><td class="n">0 mm</td></tr>
+      <tr class="destaque"><td>E3</td><td>Grell-Freitas no d01</td><td class="n">1.147</td><td class="n">0 km</td><td class="n">1 km</td><td class="n">39 mm</td></tr>
+      <tr><td>F1</td><td>GF + MYNN</td><td class="n">1.069</td><td class="n">4 km</td><td class="n">12 km</td><td class="n">0 mm</td></tr>
+      <tr><td>F2</td><td>GF + início às 06Z</td><td class="n">840</td><td class="n">5 km</td><td class="n">2 km</td><td class="n">0 mm</td></tr>
+      <tr class="destaque"><td>F3</td><td>GF + SKEBS 1</td><td class="n">1.202</td><td class="n">1 km</td><td class="n">4 km</td><td class="n">30 mm</td></tr>
+      <tr class="destaque"><td>F4</td><td>GF + SKEBS 2</td><td class="n">1.177</td><td class="n">9 km</td><td class="n">1 km</td><td class="n">42 mm</td></tr>
+    </tbody></table></div>
+  <p class="nota">Distância: do núcleo do radar ao eco ≥ 50 dBZ mais próximo do d03 (±20 min); o radar não mede rotação, então a comparação é por refletividade. Convecção cedo: pontos ≥ 50 dBZ entre 18 e 20 UTC. Granizo perto da Ilha: HAILCAST máximo a até 25 km dos relatos. Observado: 50–60 mm.</p>
+</section>
+
+<section id="aerossol">
+  <p class="rotulo">Hipótese do artigo · aerossol</p>
+  <h2>Um pulso de fumaça no dia, num agosto limpo</h2>
+  <div class="duas">
+    <div class="grafico"><div id="g-aod" role="img" aria-label="AOD diário sobre SC de 22 a 31 de agosto"></div></div>
+    <div class="grafico"><div id="g-clima" role="img" aria-label="AOD médio de agosto sobre SC de 1980 a 2026"></div></div>
+  </div>
+  <p class="texto">Sobre SC, o AOD subiu de ~0,05 em 22–23/08 para 0,25 (MERRA-2) ou 0,36 (CAMS) em 29/08, metade fumaça vinda do corredor do centro-sul. O mês como um todo ficou no percentil 22 dos agostos desde 1980, e a fumaça no percentil 13, numa tendência de queda. O AOD é da coluna inteira: falta saber se a fumaça estava na altura que alimenta a nuvem.</p>
+</section>
+
+<section id="espaco">
+  <p class="rotulo">Hipótese do artigo · clima espacial</p>
+  <h2>Perturbação fraca, mas o Jz mais intenso do mês no dia 29</h2>
+  <div class="grafico alto"><div id="g-espaco" role="img" aria-label="Kp, Dst, Ey, nêutrons e Jz de 22 a 31 de agosto"></div></div>
+  <p class="texto">Na manhã de 28/08 o Dst sobe a +22 nT e cai a −38 no dia 29, com Kp 4,3: chegada de um choque do vento solar, menor que o de 18/08. Os nêutrons de Oulu caem ~1,5% em 29–30/08. O Jz da rede de magnetômetros entre 12 e 18 UTC do dia 29 foi o mais intenso de 27 dias, mas às 22 UTC o campo já estava calmo. As células da madrugada e da manhã, as do oeste, vieram antes do pico de Jz.</p>
+</section>
+
+<section id="testes">
+  <p class="rotulo">Testes e ressalvas</p>
+  <h2>O que foi verificado e o que limita cada conclusão</h2>
+  <div class="tabela"><table>
+    <thead><tr><th>Teste</th><th>Resultado</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>Rastreio por raios (GLM) e cruzamento com relatos</td><td>todos os relatos com hora têm célula a ≤ 25 km na janela</td><td><span class="chip ok">feito</span></td></tr>
+      <tr><td>Rastreio por radar (Santiago + Morro da Igreja)</td><td>Santiago sem eco no dia; Morro da Igreja só cobre o centro e o leste</td><td><span class="chip nao">limitado</span></td></tr>
+      <tr><td>Auditoria dos números do WRF no resumo</td><td>4 de 5 conferem; HAIL_MAX2D de 60,3 mm era borda do domínio</td><td><span class="chip ok">corrigido</span></td></tr>
+      <tr><td>Auditoria das frases do satélite</td><td>−64,6 °C era o mínimo do domínio; C15−C13 só não foi positiva entre 22 e 23 UTC</td><td><span class="chip ok">corrigido</span></td></tr>
+      <tr><td>Visualização 3D anterior</td><td>dados reais, mas altura e projeção erradas; refeita</td><td><span class="chip ok">corrigido</span></td></tr>
+      <tr><td>Ensembles E e F (8 membros)</td><td>só Grell-Freitas no d01 posiciona a célula e gera granizo perto da Ilha</td><td><span class="chip ok">feito</span></td></tr>
+      <tr><td>Por que o Grell-Freitas acerta (d01 de E0 × E3)</td><td>ordem enviada ao VLab</td><td><span class="chip">aguardando</span></td></tr>
+      <tr><td>Aerossol (CAMS e MERRA-2, 1980–2026)</td><td>pulso de fumaça no dia; mês limpo; queda de −0,012 por década</td><td><span class="chip ok">feito</span></td></tr>
+      <tr><td>Kp, Dst, Ey, nêutrons, Jz</td><td>choque fraco em 28/08; Forbush de ~1,5%; Jz máximo às 12–18 UTC do dia 29</td><td><span class="chip ok">feito</span></td></tr>
+    </tbody></table></div>
+  <ul class="ressalvas">
+    <li>O rastreio por raios segue células eletricamente ativas. Granizo sem raios, ou duas células que se fundem, escapam ou se confundem. Os limiares (5 flashes por cela de 0,1° em 10 min, 45 km entre intervalos) são escolhas.</li>
+    <li>Os horários do oeste vêm de “madrugada de 29/08” nas reportagens. A coincidência com as trajetórias é de horário e lugar, não de medição de granizo.</li>
+    <li>O Jz da rede é corrente ionosférica equivalente, em nA/m² (a coluna do script diz pA/m²). A rede de 2026 não tem MED, SMS, TCM e EUS.</li>
+    <li>Os números do ambiente (ERA5) estão no resumo do I-SSTS e não foram recalculados aqui.</li>
+    <li>É um único evento: as coincidências no tempo não provam causa.</li>
+  </ul>
+  <h3>Próximos testes</h3>
+  <ul class="ressalvas">
+    <li>Domínio de 3 km cobrindo todo o estado e a Argentina, para simular as células desde o nascimento.</li>
+    <li>Microfísica com categoria de granizo (Morrison com granizo, NSSL ou P3): o modelo chega a 5–6 cm?</li>
+    <li>Número de gotas do Morrison entre 100 e 1000 por cm³, para testar o efeito do aerossol.</li>
+    <li>Ingredientes do granizo ao longo do corredor 27,3–27,5°S (ERA5): CAPE na zona de crescimento, nível de congelamento, cisalhamento.</li>
+    <li>Perfil vertical da fumaça no CAMS.</li>
+  </ul>
+</section>
+
+<section id="fontes">
+  <p class="rotulo">Fontes</p>
+  <div class="texto" style="display:grid;gap:8px;font-size:15px">
+    <p>Raios: GLM L2 LCFA do GOES-19 (NOAA, balde público). Radar: MaxCAPPI do DECEA/REDEMET. Satélite: GOES-19 ABI. Modelo: WRF-Chem 4.7.1 rodado no VLab. Aerossol: MERRA-2 (NASA) e CAMS (Copernicus). Índices: GFZ, WDC Kyoto, OMNI. Nêutrons: Universidade de Oulu (Oulu e Dome C). Jz: rede Embrace/INPE pelo método da rede de magnetômetros.</p>
+    <p>Relatos: <a href="https://www.defesacivil.sc.gov.br/2026/08/29/alerta-29-08-0712-tempestade-severa-com-raios-rajadas-de-vento-e-granizo-na-proxima-hora-ocorrencias-ligue-199-ou-193/">Defesa Civil SC, alerta de 29/08 07:12</a> · <a href="https://www.defesacivil.sc.gov.br/2026/08/31/sete-municipios-decretam-situacao-de-emergencia-e-defesa-civil-entrega-itens-de-assistencia-humanitaria-a-cidades-atingidas-por-granizo/">Defesa Civil SC, balanço de 31/08</a> · <a href="https://clicrdc.com.br/tempo/granizo-e-vendaval-atingem-municipios-do-oeste-de-sc-e-deixam-mais-de-345-residencias-afetadas/">ClicRDC, oeste</a> · <a href="https://ndmais.com.br/tempo/chuva-de-granizo-assusta-e-moradores-relatam-nunca-ter-visto-nada-igual-em-sc/">ND Mais, Biguaçu</a> · <a href="https://ciram.epagri.sc.gov.br/index.php/2026/08/30/agosto-termina-com-temporais-granizo-e-chuva-em-sc/">Epagri/Ciram</a></p>
+  </div>
+  <footer>UFSC · análise do evento de granizo de 29/08/2026 · gerado por apresentacao/build_index.py a partir dos dados do projeto</footer>
+</section>
+</main>
+
+<script>
+const D = /*__DADOS__*/{};
+const EPISODIOS = [
+  { nome: 'Madrugada · oeste', trajs: [65, 81], cor: '--ep1', quando: '06:40–08:30 UTC (03h40–05h30 local)', mun: 'Entre Rios, Ipuaçu, Abelardo Luz, Bom Jesus, Ouro Verde', ir: '2026-08-29T08:10' },
+  { nome: 'Manhã · Meio-Oeste', trajs: [107], cor: '--ep2', quando: '10:00–10:20 UTC (07h00–07h20 local)', mun: 'Joaçaba, Campos Novos', ir: '2026-08-29T10:10' },
+  { nome: 'Fim de tarde · Grande Florianópolis', trajs: [185], cor: '--ep3', quando: '22:10–22:30 UTC (19h10–19h30 local)', mun: 'Biguaçu, Florianópolis', ir: '2026-08-29T22:20' },
+];
+const T0 = Date.parse('2026-08-28T18:00:00Z'), PASSO = 600e3;
+const tok = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const ms = s => Date.parse(s + ':00Z');
+const fmt = t => new Date(t).toISOString().slice(0, 16).replace('T', ' ');
+const local = t => new Date(t - 3 * 3600e3).toISOString().slice(11, 16);
+const traj = id => D.trajetorias.find(t => t.id === id);
+
+// geometria das trajetórias a partir das células
+const geo = {};
+for (const [t, lon, lat, fl, id] of D.celulas) if (id != null) (geo[id] ||= []).push([ms(t), lon, lat, fl]);
+Object.values(geo).forEach(g => g.sort((a, b) => a[0] - b[0]));
+
+function base(extra) {
+  const ink = tok('--ink'), grade = tok('--grade');
+  return Object.assign({
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: tok('--f-body'), color: ink, size: 13 },
+    margin: { l: 56, r: 16, t: 16, b: 44 }, showlegend: true,
+    legend: { orientation: 'h', y: -0.18, x: 0, font: { size: 12 } },
+    hoverlabel: { font: { family: tok('--f-mono'), size: 12 } },
+  }, extra || {});
+}
+function eixo(extra) { return Object.assign({ gridcolor: tok('--grade'), zerolinecolor: tok('--rule'), linecolor: tok('--rule'), tickfont: { size: 12 } }, extra || {}); }
+const CFG = { displaylogo: false, responsive: true, modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d'] };
+
+// ---------- episódios e números ----------
+function cartoes() {
+  const box = document.getElementById('episodios');
+  box.innerHTML = '';
+  EPISODIOS.forEach(e => {
+    const ts = e.trajs.map(traj);
+    const div = document.createElement('div');
+    div.className = 'ep'; div.style.setProperty('--c', tok(e.cor));
+    div.innerHTML = `<h3>${e.nome}</h3><p class="quando">${e.quando}</p><p>${e.mun}</p>` +
+      ts.map(t => `<p class="nota">Trajetória ${t.id}: nasce ${t.inicio} UTC em ${(-t.lon0).toFixed(1)}°W / ${(-t.lat0).toFixed(1)}°S, ${t.dist_km} km a ${String(t.vel_m_s).replace('.', ',')} m/s</p>`).join('') +
+      `<button type="button">Ver no mapa</button>`;
+    div.querySelector('button').onclick = () => { irPara(ms(e.ir)); document.getElementById('mapa-sec').scrollIntoView({ behavior: 'smooth' }); };
+    box.appendChild(div);
+  });
+  const ts = EPISODIOS.flatMap(e => e.trajs.map(traj));
+  document.getElementById('n-km').textContent = Math.max(...ts.map(t => t.dist_km)) + ' km';
+  const v = ts.map(t => t.vel_m_s).sort((a, b) => a - b);
+  document.getElementById('n-vel').textContent = Math.round(v[Math.floor(v.length / 2)]) + ' m/s';
+}
+
+// ---------- mapa ----------
+const sl = document.getElementById('tempo'), rel = document.getElementById('relogio');
+const marcado = id => document.getElementById(id).checked;
+function irPara(t) { sl.value = Math.round((t - T0) / PASSO); desenhaMapa(); }
+
+function desenhaMapa() {
+  const agora = T0 + sl.value * PASSO, ink = tok('--ink'), muted = tok('--muted'), rule = tok('--rule');
+  rel.innerHTML = `<b>${fmt(agora).slice(11)}</b> UTC · ${fmt(agora).slice(8, 10)}/08 · ${local(agora)} local`;
+  const tr = [];
+  const linhas = { x: [], y: [] };
+  D.contornos.forEach(l => { l.forEach(p => { linhas.x.push(p[0]); linhas.y.push(p[1]); }); linhas.x.push(null); linhas.y.push(null); });
+  tr.push({ type: 'scatter', mode: 'lines', x: linhas.x, y: linhas.y, line: { color: muted, width: 0.8 }, hoverinfo: 'skip', showlegend: false });
+  if (marcado('c-todas')) {
+    const x = [], y = [];
+    for (const g of Object.values(geo)) { if (g[0][0] > agora) continue; g.filter(p => p[0] <= agora).forEach(p => { x.push(p[1]); y.push(p[2]); }); x.push(null); y.push(null); }
+    tr.push({ type: 'scatter', mode: 'lines', x, y, line: { color: muted, width: 1 }, opacity: 0.45, hoverinfo: 'skip', name: 'todas as trajetórias' });
+  }
+  if (marcado('c-wrf')) {
+    tr.push({ type: 'scatter', mode: 'lines', x: D.d02.map(p => p[0]), y: D.d02.map(p => p[1]), line: { color: ink, width: 1.2, dash: 'dot' }, hoverinfo: 'skip', name: 'domínio WRF d02' });
+    const w = D.wrf.filter(o => { const t = ms(o[0].slice(0, 16)); return t <= agora && t > agora - 30 * 60e3; });
+    tr.push({ type: 'scatter', mode: 'markers', x: w.map(o => o[1]), y: w.map(o => o[2]), marker: { symbol: 'square-open', size: 9, color: ink }, name: 'WRF d02 ≥ 50 dBZ', hovertemplate: 'WRF d02 ≥ 50 dBZ<br>HAILCAST %{customdata} mm<extra></extra>', customdata: w.map(o => o[3]) });
+  }
+  if (marcado('c-radar')) {
+    const r = D.radar.filter(o => { const t = ms(o[0]); return t <= agora && t > agora - 30 * 60e3; });
+    tr.push({ type: 'scatter', mode: 'markers', x: r.map(o => o[1]), y: r.map(o => o[2]), marker: { symbol: 'diamond', size: 8, color: tok('--accent') }, name: 'radar ≥ ~50 dBZ', hovertemplate: 'radar %{text} UTC<extra></extra>', text: r.map(o => o[0].slice(11)) });
+  }
+  if (marcado('c-cel')) {
+    const c = D.celulas.filter(o => { const t = ms(o[0]); return t <= agora && t > agora - 60 * 60e3; });
+    tr.push({ type: 'scatter', mode: 'markers', x: c.map(o => o[1]), y: c.map(o => o[2]),
+      marker: { size: c.map(o => 4 + 2.2 * Math.sqrt(o[3])), color: ink, opacity: c.map(o => 0.2 + 0.7 * (1 - (agora - ms(o[0])) / 3600e3)), line: { width: 0 } },
+      name: 'células com raios (última hora)', hovertemplate: '%{text}<extra></extra>', text: c.map(o => `${o[0].slice(11)} UTC · ${o[3]} flashes` + (o[4] ? ` · trajetória ${o[4]}` : '')) });
+  }
+  if (marcado('c-ep')) EPISODIOS.forEach(e => e.trajs.forEach(id => {
+    const g = geo[id]; const cor = tok(e.cor);
+    tr.push({ type: 'scatter', mode: 'lines', x: g.map(p => p[1]), y: g.map(p => p[2]), line: { color: cor, width: 1.5, dash: 'dot' }, opacity: 0.6, hoverinfo: 'skip', showlegend: false });
+    const feito = g.filter(p => p[0] <= agora);
+    if (feito.length) {
+      const u = feito[feito.length - 1];
+      tr.push({ type: 'scatter', mode: 'lines+markers+text', x: feito.map(p => p[1]), y: feito.map(p => p[2]), line: { color: cor, width: 4 },
+        marker: { size: feito.map((p, i) => i === feito.length - 1 ? 11 : 0), color: cor }, text: feito.map((p, i) => i === feito.length - 1 ? ` ${id}` : ''), textposition: 'middle right', textfont: { color: ink, size: 13 },
+        name: `${e.nome} (${id})`, hovertemplate: `trajetória ${id}<br>%{customdata}<extra></extra>`, customdata: feito.map(p => fmt(p[0]).slice(11) + ' UTC, ' + p[3] + ' flashes') });
+    }
+  }));
+  if (marcado('c-mun')) {
+    const info = {};
+    D.relatos_glm.forEach(r => { (info[r.municipio] ||= r.fonte); });
+    const nomes = Object.keys(D.municipios);
+    tr.push({ type: 'scatter', mode: 'markers+text', x: nomes.map(n => D.municipios[n][0]), y: nomes.map(n => D.municipios[n][1]),
+      marker: { symbol: 'triangle-up', size: 11, color: tok('--accent'), line: { color: tok('--surface'), width: 1 } },
+      text: nomes, textposition: 'bottom center', textfont: { size: 11, color: ink }, name: 'granizo relatado',
+      hovertemplate: '%{text}<br>%{customdata}<extra></extra>', customdata: nomes.map(n => info[n] || 'relato sem horário cruzado') });
+  }
+  const lay = base({
+    xaxis: eixo({ range: [-56.8, -47], title: { text: 'longitude', font: { size: 12 } }, ticksuffix: '°' }),
+    yaxis: eixo({ range: [-30, -25.6], scaleanchor: 'x', scaleratio: 1.127, ticksuffix: '°' }),
+    margin: { l: 52, r: 12, t: 10, b: 40 }, showlegend: false, uirevision: 'mapa', dragmode: 'pan',
+  });
+  Plotly.react('mapa', tr, lay, CFG);
+  const leg = document.getElementById('legenda');
+  leg.innerHTML = EPISODIOS.map(e => `<span><i style="--c:${tok(e.cor)}"></i>${e.nome}</span>`).join('') + `<span><i class="tri"></i>município com granizo relatado</span>`;
+}
+let anim = null;
+document.getElementById('play').onclick = function () {
+  if (anim) { clearInterval(anim); anim = null; this.textContent = '▶ Animar'; this.setAttribute('aria-pressed', 'false'); return; }
+  this.textContent = '❚❚ Pausar'; this.setAttribute('aria-pressed', 'true');
+  anim = setInterval(() => { sl.value = (+sl.value + 1) % (+sl.max + 1); desenhaMapa(); }, 220);
+};
+sl.addEventListener('input', desenhaMapa);
+document.querySelectorAll('.camadas input').forEach(c => c.addEventListener('change', desenhaMapa));
+
+// ---------- tabela de relatos ----------
+function tabelaRelatos() {
+  const tb = document.querySelector('#tab-relatos tbody'); tb.innerHTML = '';
+  D.relatos_glm.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.municipio}</td><td>${r.fonte}</td><td class="n">${r.traj ?? '—'}</td><td class="n">${r.passagem}</td><td class="n">${r.dist_km != null ? r.dist_km + ' km' : '—'}</td>` +
+      `<td>${r.traj_inicio ? r.traj_inicio + ' em ' + (-r.traj_lon0).toFixed(1) + '°W' : '—'}</td><td class="n">${r.traj_dist_km ? r.traj_dist_km + ' km · ' + String(r.traj_vel_m_s).replace('.', ',') + ' m/s' : '—'}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+// ---------- gráficos ----------
+function faixa(y0, y1, yref) { return { type: 'rect', xref: 'x', yref: yref || 'paper', x0: '2026-08-29T22:00', x1: '2026-08-29T23:00', y0: y0 ?? 0, y1: y1 ?? 1, fillcolor: tok('--faixa'), line: { width: 0 }, layer: 'below' }; }
+function gGoes() {
+  const G = D.goes;
+  Plotly.react('g-goes', [
+    { x: G.t, y: G.tb_ilha, name: 'topo mais frio, norte da Ilha', mode: 'lines+markers', line: { color: tok('--ep3'), width: 2 }, marker: { size: 5 }, hovertemplate: '%{y:.1f} °C<extra>norte da Ilha</extra>' },
+    { x: G.t, y: G.tb_dominio, name: 'topo mais frio, domínio', mode: 'lines', line: { color: tok('--ep1'), width: 2 }, hovertemplate: '%{y:.1f} °C<extra>domínio</extra>' },
+    { x: G.t, y: G.flashes, name: 'flashes por 10 min', type: 'bar', yaxis: 'y2', marker: { color: tok('--muted'), opacity: 0.55 }, hovertemplate: '%{y} flashes<extra></extra>' },
+  ], base({
+    xaxis: eixo({ range: ['2026-08-29T20:50', '2026-08-30T02:00'], domain: [0, 1] }),
+    yaxis: eixo({ title: { text: '°C', font: { size: 12 } }, domain: [0.42, 1] }),
+    yaxis2: eixo({ title: { text: 'flashes', font: { size: 12 } }, domain: [0, 0.32] }),
+    shapes: [faixa()], margin: { l: 56, r: 12, t: 12, b: 40 },
+  }), CFG);
+}
+function gAod() {
+  const A = D.aod, c1 = tok('--ep1'), c2 = tok('--ep2');
+  const lin = (s, nome, cor, dash, mk) => ({ x: s.t, y: s.v, name: nome, mode: mk ? 'lines+markers' : 'lines', line: { color: cor, width: mk ? 2.5 : 1.6, dash }, marker: { size: 6 }, hovertemplate: '%{y:.3f}<extra>' + nome + '</extra>' });
+  Plotly.react('g-aod', [lin(A.m2_total, 'total, MERRA-2', c1, 'solid', 1), lin(A.cams_total, 'total, CAMS', c1, 'dash'),
+    lin(A.m2_fumaca, 'fumaça, MERRA-2', c2, 'solid', 1), lin(A.cams_fumaca, 'fumaça, CAMS', c2, 'dash')],
+    base({ xaxis: eixo({ range: ['2026-08-22', '2026-09-01'] }), yaxis: eixo({ title: { text: 'AOD 550 nm', font: { size: 12 } }, rangemode: 'tozero' }), shapes: [faixa()] }), CFG);
+}
+function gClima() {
+  const C = D.clima_aod, i26 = C.ano.indexOf(2026);
+  Plotly.react('g-clima', [
+    { x: C.ano, y: C.total, type: 'bar', name: 'AOD total de agosto', marker: { color: C.ano.map(a => a === 2026 ? tok('--accent') : tok('--ep1')) }, hovertemplate: '%{x}: %{y:.3f}<extra>total</extra>' },
+    { x: C.ano, y: C.fumaca, mode: 'lines', name: 'fumaça', line: { color: tok('--ep2'), width: 2 }, hovertemplate: '%{x}: %{y:.3f}<extra>fumaça</extra>' },
+  ], base({ xaxis: eixo({}), yaxis: eixo({ title: { text: 'AOD médio de agosto, caixa SC', font: { size: 12 } } }),
+    annotations: i26 >= 0 ? [{ x: 2026, y: C.total[i26], text: '2026', showarrow: true, arrowhead: 0, ay: -30, font: { color: tok('--ink') } }] : [] }), CFG);
+}
+function gEspaco() {
+  const ink = tok('--ink'), c1 = tok('--ep1'), c2 = tok('--ep2');
+  const dom = [[0.83, 1], [0.64, 0.79], [0.45, 0.60], [0.24, 0.41], [0, 0.20]];
+  const tr = [
+    { x: D.kp.t, y: D.kp.v, type: 'bar', name: 'Kp', marker: { color: c1 }, xaxis: 'x', yaxis: 'y', hovertemplate: 'Kp %{y}<extra></extra>' },
+    { x: D.dst.t, y: D.dst.v, name: 'Dst', line: { color: c1, width: 2 }, xaxis: 'x', yaxis: 'y2', hovertemplate: '%{y} nT<extra>Dst</extra>' },
+    { x: D.ey.t, y: D.ey.v, name: 'Ey', line: { color: c1, width: 1.4 }, xaxis: 'x', yaxis: 'y3', hovertemplate: '%{y} mV/m<extra>Ey</extra>' },
+    { x: D.neutrons.OULU.t, y: D.neutrons.OULU.v, name: 'nêutrons Oulu', line: { color: c1, width: 1.6 }, xaxis: 'x', yaxis: 'y4', hovertemplate: '%{y}%<extra>Oulu</extra>' },
+    { x: D.neutrons.DOMC.t, y: D.neutrons.DOMC.v, name: 'nêutrons Dome C', line: { color: c2, width: 1.6 }, xaxis: 'x', yaxis: 'y4', hovertemplate: '%{y}%<extra>Dome C</extra>' },
+    { x: D.jz.t, y: D.jz.v, name: 'Jz da rede', line: { color: c1, width: 1.4 }, xaxis: 'x', yaxis: 'y5', hovertemplate: '%{y} nA/m²<extra>Jz</extra>' },
+  ];
+  const tit = ['Kp', 'Dst (nT)', 'Ey (mV/m)', 'nêutrons (%)', 'Jz (nA/m²)'];
+  const lay = base({ showlegend: true, legend: { orientation: 'h', y: 1.06, x: 0 }, hovermode: 'x unified',
+    xaxis: eixo({ anchor: 'y5', range: ['2026-08-22', '2026-08-31'] }), margin: { l: 64, r: 12, t: 40, b: 40 },
+    shapes: dom.map((d, i) => faixa(d[0], d[1], 'paper')) });
+  dom.forEach((d, i) => { lay['yaxis' + (i ? i + 1 : '')] = eixo({ domain: d, title: { text: tit[i], font: { size: 12 } } }); });
+  Plotly.react('g-espaco', tr, lay, CFG);
+}
+
+function tudo() { cartoes(); desenhaMapa(); tabelaRelatos(); gGoes(); gAod(); gClima(); gEspaco(); }
+if (window.Plotly) tudo(); else window.addEventListener('load', tudo);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', tudo);
+new MutationObserver(tudo).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>

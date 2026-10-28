@@ -1,25 +1,2 @@
 __pycache__/
-*.py[cod]
-saida/
-*.exe
-metpack/testes/
-screenshot_*.png
-emanuel_*/
-/*.png
-/wyoming_*.txt
-/wyoming_*.csv
-/wyoming*.f
-metpack/fig_sat_ir_*.png
-metpack/wyoming_emanuel
-metpack/wyoming_emanuel.exe
-metpack/wyoming_usado.f
-# saídas geradas ao rodar os programas (não vão para o repositório)
-metpack/*.out
-metpack/sounding.txt
-metpack/header.txt
-metpack/modsound.txt
-metpack/sounding_temp.txt
-metpack/*.asv
-metpack/wyoming_emanuel
-metpack/wyoming_usado.f
-metpack/sat/
+*.pyc

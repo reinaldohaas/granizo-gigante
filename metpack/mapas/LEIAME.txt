@@ -1,4 +1,0 @@
-Contornos recortados para a America do Sul (lon -95..-25, lat -60..10) a partir do
-Natural Earth 10m (dominio publico): ne_10m_coastline, ne_10m_admin_0_boundary_lines_land,
-ne_10m_admin_1_states_provinces_lines. Fonte: https://github.com/nvkelso/natural-earth-vector
-Usados para desenhar mapas de contorno sem precisar de internet.

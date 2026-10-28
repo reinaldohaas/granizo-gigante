@@ -1,0 +1,86 @@
+==============================================================================
+CONTROLE DE QUALIDADE DA REDE -- sete verificacoes
+==============================================================================
+arquivos indexados: 378
+estacoes: ARA CHI CXP JAT PVE RGA SJC SLZ STM VSS
+periodo: 2026-08-01 a 2026-09-10 (41 dias)
+Isto le ate 410 arquivos de 1440 linhas. Pode levar alguns minutos.
+
+lendo ...
+   ARA    40 arquivos
+   CHI    41 arquivos
+   CXP    41 arquivos
+   JAT    38 arquivos
+   PVE    41 arquivos
+   RGA    39 arquivos
+   SJC    37 arquivos
+   SLZ    34 arquivos
+   STM    41 arquivos
+   VSS    26 arquivos
+
+verificando ...
+
+==============================================================================
+1. RESUMO POR ESTACAO -- % de dias em cada veredito
+==============================================================================
+est       BOM    SUSP    RUIM |     aus    trav   faixa   salto  degrau  incoer   repet
+ARA     61.0%   24.4%   14.6% |     7.4     0.0    0.00    0.03     0.0     0.0     0.0
+CHI      7.3%   41.5%   51.2% |     0.1     0.0    0.00    2.47    29.3    51.2     0.0
+CXP     43.9%   56.1%    0.0% |     0.1     0.0    0.00    0.56     0.0     0.0     0.0
+JAT     53.7%   36.6%    9.8% |     8.7     0.0    0.00    0.07     0.0     0.0     0.0
+PVE     68.3%   31.7%    0.0% |     0.0     0.0    0.00    0.09     0.0     0.0     0.0
+RGA      2.4%   14.6%   82.9% |     6.9     4.9    4.88    0.66     0.0    70.7     2.4
+SJC     53.7%   34.1%   12.2% |    11.6     0.0    0.00    0.04     0.0     0.0     0.0
+SLZ     56.1%   24.4%   19.5% |    19.3     0.0    0.00    0.05     0.0     0.0     0.0
+STM     24.4%   73.2%    2.4% |     1.8     0.0    0.02    0.96     0.0     0.0     0.0
+VSS     53.7%    4.9%   41.5% |    39.3     0.0    0.00    0.01     0.0     2.4     0.0
+
+  As tres primeiras colunas somam 100. As demais sao a media da
+  marca, em por cento de minutos, exceto degrau, incoerencia e
+  repeticao, que sao por cento de DIAS marcados.
+
+==============================================================================
+2. RANKING PARA ANALISE DE ESTACAO UNICA
+==============================================================================
+est    %dias BOM   r_vizinhas        lat        lon
+JAT        63.6%         0.96     -17.88     -51.72
+PVE        63.6%         0.91      -8.76     -63.90
+SJC        54.5%         0.98     -23.21     -45.96
+SLZ        50.0%         0.94      -2.53     -44.30
+ARA        45.5%         0.97      -5.65     -48.12
+CXP        40.9%         0.93     -15.55     -56.07
+STM        36.4%         0.96      -2.43     -54.71
+VSS        22.7%         0.98     -22.40     -43.65
+CHI        13.6%         0.51     -33.69     -53.46
+RGA         4.5%        -0.02     -32.03     -52.09
+
+  Para o metodo de estacao unica -- anomalia temporal numa estacao,
+  sem derivada espacial -- o criterio e simples: alta fracao de
+  dias BOM e correlacao alta com as vizinhas. Correlacao alta
+  significa que a estacao mede o mesmo campo que as outras; e o
+  que autoriza atribuir a uma anomalia dela algum significado.
+
+==============================================================================
+3. ESTACOES BOAS POR MINUTO NA JANELA 2026-08-15 a 2026-09-05
+==============================================================================
+  n_estacoes    minutos          %
+           9       4538       14.3
+           8      13056       41.2
+           7       9670       30.5
+           6       3536       11.2
+           5        871        2.7
+           4          9        0.0
+
+  em 90% dos minutos: pelo menos 6 estacoes BOAS
+  mascara: .\resultados\qa_rede_mascara.csv
+
+csv diario: .\resultados\qa_rede_diario.csv
+
+==============================================================================
+COMO LER
+==============================================================================
+Este script NAO corrige nada. Ele classifica e grava a mascara.
+A verificacao 6, de coerencia com as vizinhas, e a que pega o que
+as outras nao pegam: estacao dentro da faixa, sem salto e sem
+travamento, medindo outra coisa. Se ela reprovar uma estacao que
+passa em todas as demais, desconfie da estacao, nao do teste.

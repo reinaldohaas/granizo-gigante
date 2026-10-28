@@ -1,0 +1,153 @@
+==============================================================================
+RECONSTRUCAO DO INDICE, SOBRE O CONTROLE DE QUALIDADE
+==============================================================================
+convencao: x=leste y=norte, X=norte Y=leste, rot = dX/dx - dY/dy
+calibracao: 1 nT por 100 km  ->  7,96 nA/m2
+
+estacoes com dado e coordenada: ARA CHI CXP JAT PVE RGA SJC SLZ STM VSS
+mascara do QA: .\resultados/qa_rede_mascara.csv
+   ARA    86.2% dos minutos aprovados
+   CHI    45.3% dos minutos aprovados
+   CXP    99.4% dos minutos aprovados
+   JAT    97.4% dos minutos aprovados
+   PVE    99.9% dos minutos aprovados
+   RGA    22.4% dos minutos aprovados
+   SJC    95.1% dos minutos aprovados
+   SLZ    84.9% dos minutos aprovados
+   STM    97.1% dos minutos aprovados
+   VSS    25.2% dos minutos aprovados
+
+==============================================================================
+1. LINHA DE BASE -- os 5 dias mais calmos de cada mes
+==============================================================================
+   ARA  2026-08: 22 25 20 26 16
+   ARA  2026-09: 02 05 01 03 04
+   CHI  2026-08: 27 16 21 22 29
+   CHI  2026-09: 02 01 03
+   CXP  2026-08: 27 23 15 26 21
+   CXP  2026-09: 01 02 03 05 04
+   JAT  2026-08: 27 26 15 23 25
+   JAT  2026-09: 02 01 04 03
+   PVE  2026-08: 23 21 26 20 22
+   PVE  2026-09: 05 02 04 03 01
+   RGA  2026-08: 26 30 18 17 28
+   RGA  2026-09: menos de 2 dias calmos aprovados
+   SJC  2026-08: 27 23 15 21 19
+   SJC  2026-09: 01 02 03 04
+   SLZ  2026-08: 22 25 23 16 26
+   SLZ  2026-09: 02 01
+   STM  2026-08: 22 23 20 26 21
+   STM  2026-09: 05 02 04 03 01
+   VSS  2026-08: menos de 2 dias calmos aprovados
+   VSS  2026-09: 01 02 05 03 04
+
+==============================================================================
+2. AJUSTE PLANAR COM INCERTEZA E RESIDUO
+==============================================================================
+minutos com resultado: 31680 de 31680 (100.0%)
+descartados por geometria degenerada (cond > 50): 0
+
+                            mediana        p90        max
+estacoes por minuto               8          9          9
+numero de condicao             1.99        2.2       3.29
+Jz (nA/m2)                     2.28       6.73       25.7
+incerteza sigma (nA/m2)        2.77       8.02       20.9
+residuo / amplitude           0.568      0.799      0.993
+
+  fracao de minutos com |Jz| acima de 2 sigma: 6.7%
+  residuo mediano: 56.8% da amplitude do campo
+
+  O residuo mede se o campo e PLANO sobre esta rede. Se ele for
+  grande, nenhum ajuste planar conserta -- e o limite da geometria,
+  nao do algoritmo. Substitui o limiar de graus de latitude que eu
+  vinha usando, que era julgamento e nao medida.
+
+  serie: .\dados\jz\serie_jz_qa.csv
+
+==============================================================================
+2b. CICLO DIURNO, NA SERIE QUE O PRESERVA
+==============================================================================
+Esta secao usa jz_total, com linha de base CONSTANTE. A serie
+de perturbacao nao serve aqui: nela o Sq foi subtraido, e o Sq
+e justamente o ciclo diurno.
+
+  longitude media da rede -51.40 -> hora local = UT -3.43 h
+
+  composto por HORA LOCAL (mediana de todos os dias):
+     HL     jz_total    jz_pertur          n
+      0        -0.44        -2.08       1320  ##
+      1        -0.40        -1.89       1320  #
+      2        -0.40        -1.09       1320  ##
+      3        -0.33        -1.30       1320  #
+      4        -0.46        -1.12       1320  ##
+      5        -0.97        -0.61       1320  ####
+      6        -0.97        -0.74       1320  ####
+      7         1.51         0.37       1320  #######
+      8         3.47         0.71       1320  #################
+      9         2.38        -0.86       1320  ###########
+     10        -0.39        -2.46       1320  #
+     11        -0.45        -2.14       1320  ##
+     12        -1.20        -4.45       1320  #####
+     13        -1.99        -4.94       1320  #########
+     14        -2.07        -3.61       1320  ##########
+     15        -3.51        -0.80       1320  #################
+     16        -3.44        -1.39       1320  #################
+     17        -1.58        -1.67       1320  #######
+     18         0.29        -1.10       1320  #
+     19         0.15        -2.43       1320  
+     20        -0.12        -2.23       1320  
+     21        -0.28        -2.68       1320  #
+     22        -0.41        -2.62       1320  ##
+     23        -0.32        -2.51       1320  #
+
+  amplitude NOTURNA (21 a 06 h local) de jz_total, dia a dia:
+  dia             amplitude      n_min
+  2026-08-15           0.78        540
+  2026-08-16           1.53        540
+  2026-08-17           2.22        540
+  2026-08-18           3.71        540
+  2026-08-19           2.69        540
+  2026-08-20           1.91        540
+  2026-08-21           1.45        540
+  2026-08-22           0.76        540
+  2026-08-23           2.01        540
+  2026-08-24           1.17        540
+  2026-08-25           1.03        540
+  2026-08-26           2.23        540
+  2026-08-27           1.20        540
+  2026-08-28           2.01        540
+  2026-08-29           2.15        540
+  2026-08-30           1.70        540
+  2026-08-31           1.17        540
+  2026-09-01           1.37        540
+  2026-09-02           1.73        540
+  2026-09-03           1.53        540
+  2026-09-04           1.79        540
+  2026-09-05           3.19        540
+
+  O ciclo diurno NAO foi removido aqui. Esta e a serie a usar
+  para qualquer pergunta sobre o sistema noturno.
+
+==============================================================================
+3. AUTOVALIDACAO -- a serie responde ao forcante?
+==============================================================================
+  |Jz| diario x amplitude diaria de SYM-H, n=22 dias
+  Pearson +0.235   Spearman +0.289
+  Comparacao: rede antiga sem QA dava Spearman -0,63.
+
+  criterio 1, resposta-dose positiva : OK
+  criterio 2, |Jz| > 2 sigma em mais de metade dos minutos: FALHA (7%)
+  criterio 3, residuo mediano < 25%: FALHA (57%)
+
+  VEREDITO: SERIE FRAGIL -- passa em 1 de 3. Use com a coluna
+  sigma, e nao interprete minuto com |Jz| abaixo de 2 sigma.
+
+figura: .\resultados\fig_jz_reconstrucao.png
+
+==============================================================================
+COMO LER
+==============================================================================
+A coluna sigma nao e decoracao. Um valor de 47 +- 62 nA/m2 nao e
+um valor: e ruido. Toda analise a jusante deve filtrar por ela.
+E o indice continua sendo corrente ionosferica equivalente, nao a
+corrente de conducao vertical do circuito global.
