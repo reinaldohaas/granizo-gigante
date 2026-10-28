@@ -184,6 +184,82 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
       <tr class="destaque"><td>F4</td><td>GF + SKEBS 2</td><td class="n">1.177</td><td class="n">9 km</td><td class="n">1 km</td><td class="n">42 mm</td></tr>
     </tbody></table></div>
   <p class="nota">Distância: do núcleo do radar ao eco ≥ 50 dBZ mais próximo do d03 (±20 min); o radar não mede rotação, então a comparação é por refletividade. Convecção cedo: pontos ≥ 50 dBZ entre 18 e 20 UTC. Granizo perto da Ilha: HAILCAST máximo a até 25 km dos relatos. Observado: 50–60 mm.</p>
+  <h3 id="animacoes">Animação: o radar e as nove rodadas, 20:30 a 23:40 UTC</h3>
+  <p class="texto">Cada quadro põe o MaxCAPPI do Morro da Igreja ao lado do REFD_MAX do d03 de cada rodada no mesmo horário. Contorno preto: helicidade ≥ 75 m² s⁻² (rotação); magenta: HAILCAST ≥ 20 mm. As três rodadas com moldura magenta (E3, F3 e F4) são as que põem granizo a até 25 km dos relatos. A área branca a oeste da linha tracejada fica fora da grade de 1 km.</p>
+  <div class="painel-mapa anim">
+    <div class="controles">
+      <button type="button" id="anim-play" aria-label="Reproduzir">▶ Reproduzir</button>
+      <span class="relogio" id="anim-hora"><b>20:30</b> UTC</span>
+      <input type="range" id="anim-t" min="0" max="19" value="0" step="1" aria-label="Horário">
+    </div>
+    <img id="anim-mosaico" src="radar/animacoes/mosaico/2030.jpg" alt="Radar e nove rodadas do WRF no horário escolhido" width="1600" height="432">
+  </div>
+  <div class="camadas" role="group" aria-label="Rodada em detalhe" id="anim-membros"></div>
+  <div class="duas">
+    <figure><img id="anim-detalhe" src="radar/animacoes/E3_gf_d01/2030.jpg" alt="Radar, GOES-19 C13 e WRF da rodada escolhida" width="990" height="1260" loading="lazy">
+      <figcaption>De cima para baixo: radar Morro da Igreja, GOES-19 canal 13 (ciano −50 °C, vermelho −60 °C, sem correção de paralaxe) e a rodada escolhida. O slider acima controla os dois quadros.</figcaption></figure>
+    <div class="texto" style="display:grid;gap:14px;align-content:start">
+      <p id="anim-texto"></p>
+      <p class="nota">Campos do WRF são máximos no intervalo de 10 min; radar e satélite são instantâneos, e o radar tem um quadro a cada 20 min. GIFs: <a href="radar/animacoes/mosaico/mosaico_ensemble.gif">mosaico</a> e <a id="anim-gif" href="radar/animacoes/E3_gf_d01/lado_a_lado.gif">rodada escolhida</a>.</p>
+    </div>
+  </div>
+  <style>
+    .anim img { width: 100%; height: auto; display: block; background: #fff }
+    #anim-detalhe { max-width: 620px; height: auto }
+    #anim-membros button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent) }
+    #anim-membros button.granizo { border-top: 3px solid var(--accent) }
+  </style>
+  <script>
+  (() => {
+    const membros = [
+      ['controle_2210', '22/10', 'Controle (22/10). Eco forte 24 km ao norte do núcleo do radar às 21:16 e a 1 km dele às 22:16, mas com a rotação a 37 km e sem granizo perto da Ilha.'],
+      ['E0_controle', 'E0', 'Controle com o d03 deslocado para oeste. Eco forte 24 km ao sul do núcleo do radar às 21:16 e a 5 km às 22:16; sem granizo perto da Ilha.'],
+      ['E1_mynn', 'E1', 'Camada limite MYNN. Menos convecção prematura, mas o eco fica 41 km longe às 21:16 (1 km às 22:16); sem granizo perto da Ilha.'],
+      ['E2_inicio06', 'E2', 'Início às 06Z. A célula fica 34 km longe às 21:16 e 18 km às 22:16; sem granizo perto da Ilha.'],
+      ['E3_gf_d01', 'E3', 'Grell-Freitas no d01. Eco forte sobre o núcleo do radar às 21:16 e 21:36 e HAILCAST de 39 mm perto dos relatos; a rotação se perde antes da Ilha. Também gera 50–54 mm sobre Ingleses às 20:20, umas 2,5 h cedo demais.', 1],
+      ['F1_gf_mynn', 'F1', 'GF + MYNN. Eco a 4 km do radar às 21:16, mas a rotação está 36 km ao sul e não há granizo perto da Ilha.'],
+      ['F2_gf_inicio06', 'F2', 'GF + início às 06Z. Eco no lugar (5 km às 21:16, 2 km às 22:16), sem rotação no horário e sem granizo perto da Ilha.'],
+      ['F3_gf_skebs1', 'F3', 'GF + SKEBS (semente 1). Eco a 1 km do radar às 21:16 e HAILCAST de 30 mm perto dos relatos.', 1],
+      ['F4_gf_skebs2', 'F4', 'GF + SKEBS (semente 2). Eco a 9 km às 21:16 e 1 km às 22:16; o maior HAILCAST perto da Ilha, 42 mm. Observado: 50–60 mm.', 1],
+    ];
+    const horas = Array.from({ length: 20 }, (_, i) => { const m = 20 * 60 + 30 + 10 * i; return String(Math.floor(m / 60)).padStart(2, '0') + String(m % 60).padStart(2, '0'); });
+    const $ = id => document.getElementById(id);
+    const slider = $('anim-t'), botao = $('anim-play'), caixa = $('anim-membros');
+    let atual = 'E3_gf_d01', timer = null;
+    const pre = {};
+    const carregar = src => { if (!pre[src]) { pre[src] = new Image(); pre[src].src = src; } };
+    function mostra() {
+      const h = horas[+slider.value];
+      $('anim-hora').innerHTML = `<b>${h.slice(0, 2)}:${h.slice(2)}</b> UTC`;
+      $('anim-mosaico').src = `radar/animacoes/mosaico/${h}.jpg`;
+      $('anim-detalhe').src = `radar/animacoes/${atual}/${h}.jpg`;
+    }
+    function escolhe(id) {
+      atual = id;
+      const m = membros.find(m => m[0] === id);
+      $('anim-texto').textContent = m[2];
+      $('anim-gif').href = `radar/animacoes/${id}/lado_a_lado.gif`;
+      caixa.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.id === id));
+      horas.forEach(h => carregar(`radar/animacoes/${id}/${h}.jpg`));
+      mostra();
+    }
+    membros.forEach(([id, rot, , gr]) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.dataset.id = id; b.textContent = rot + (gr ? ' · granizo' : '');
+      if (gr) b.className = 'granizo';
+      b.addEventListener('click', () => escolhe(id));
+      caixa.appendChild(b);
+    });
+    slider.addEventListener('input', mostra);
+    botao.addEventListener('click', () => {
+      if (timer) { clearInterval(timer); timer = null; botao.textContent = '▶ Reproduzir'; return; }
+      horas.forEach(h => carregar(`radar/animacoes/mosaico/${h}.jpg`));
+      botao.textContent = '❚❚ Pausar';
+      timer = setInterval(() => { slider.value = (+slider.value + 1) % horas.length; mostra(); }, 900);
+    });
+    escolhe(atual);
+  })();
+  </script>
 </section>
 
 <section id="aerossol">
