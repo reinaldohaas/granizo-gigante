@@ -260,6 +260,26 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
     escolhe(atual);
   })();
   </script>
+  <h3 id="chuva-imerg">Chuva observada: IMERG, radar e satélite contra as nove rodadas</h3>
+  <p class="texto">O IMERG Late (satélite, 0,1°) põe uma faixa de 10–20 mm de oeste para leste até a Ilha entre 27,4° e 27,8° S. Põe também dois máximos fora dela: no mar a nordeste (61 mm) e no litoral sul. O radar e os topos frios do GOES-19 com os raios do GLM mostram a mesma faixa. Todas as rodadas chovem de metade a um terço do observado. As de Kain-Fritsch concentram 20–40 mm num núcleo cerca de 50 km a oeste da Ilha e quase nada sobre ela. As de Grell-Freitas espalham a chuva pela faixa, e E3, F3 e F4 a levam até perto da Ilha. A correlação com o IMERG é baixa em todas: 0,01–0,07 com KF e 0,05–0,20 com GF entre 18 e 00 UTC.</p>
+  <div class="camadas" role="group" aria-label="Janela de tempo" id="chuva-janelas">
+    <button type="button" data-j="2918_3000" aria-pressed="true">18–00 UTC</button>
+    <button type="button" data-j="2920_2923" aria-pressed="false">20–23 UTC</button>
+    <button type="button" data-j="3000_3002" aria-pressed="false">00–02 UTC (30/08)</button>
+  </div>
+  <figure class="anim"><img id="chuva-img" src="radar/chuva_imerg/chuva_2918_3000.jpg" alt="Chuva do IMERG, radar, GOES e as nove rodadas na janela escolhida" width="1700" height="1232" loading="lazy">
+    <figcaption>Primeira linha: IMERG, cor máxima do MaxCAPPI do Morro da Igreja e menor temperatura do canal 13 do GOES-19 com a densidade de flashes do GLM. Demais painéis: RAINNC do d02 (3 km, sem cumulus) de cada rodada, na grade do IMERG. Tracejado: d03; ★ Ilha.</figcaption></figure>
+  <p class="nota">O MaxCAPPI da REDEMET não tem legenda, então a cor é um índice de intensidade sem calibração em dBZ; o vermelho é o critério de núcleo intenso usado acima. O IMERG suaviza núcleos: sobre a Ilha marca 10–20 mm contra 50–60 mm nos pluviômetros. O GOES não tem correção de paralaxe. A distância entre centroides nos títulos é distorcida pelos máximos no mar e no sul, que nenhuma rodada tem. Tabela: <a href="radar/chuva_imerg/estatisticas.csv">estatisticas.csv</a>; script: <a href="radar/chuva_imerg_membros.py">chuva_imerg_membros.py</a>.</p>
+  <script>
+  (() => {
+    const caixa = document.getElementById('chuva-janelas'), img = document.getElementById('chuva-img');
+    caixa.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      img.src = `radar/chuva_imerg/chuva_${b.dataset.j}.jpg`;
+      caixa.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', o === b));
+    }));
+  })();
+  </script>
+  <style>#chuva-janelas button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent) }</style>
 </section>
 
 <section id="aerossol">
