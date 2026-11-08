@@ -1,0 +1,4 @@
+lugar,hora_evento,isoterma0_m,isoterma0_m_percentil,isoterma0_m_mediana_clima,cape_jkg,cape_jkg_percentil,cape_jkg_mediana_clima,vapor_mm,vapor_mm_percentil,vapor_mm_mediana_clima,isoterma0_m_tend_por_decada,isoterma0_m_media_1940_1969,isoterma0_m_media_1996_2025,cape_jkg_tend_por_decada,cape_jkg_media_1940_1969,cape_jkg_media_1996_2025,vapor_mm_tend_por_decada,vapor_mm_media_1940_1969,vapor_mm_media_1996_2025
+Oeste (Ipuaçu),28/08 21 UTC,4046.6,96.6,3257.5,731.0,93.8,4.4,27.0,81.7,17.5,25.45,3144.1,3295.7,-8.44,162.0,115.7,-0.12,18.4,17.7
+Meio-Oeste (Joaçaba),28/08 21 UTC,4210.4,98.2,3340.3,477.0,92.2,2.2,27.1,80.6,17.8,23.61,3184.9,3327.7,-6.72,134.1,96.9,-0.11,18.9,18.3
+Grande Florianópolis (Biguaçu),29/08 21 UTC,4487.0,94.2,3769.9,887.0,97.4,3.5,42.4,99.4,21.8,22.92,3673.5,3807.8,-4.07,110.6,81.2,-0.12,23.0,22.2

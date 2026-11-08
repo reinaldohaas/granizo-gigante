@@ -1,0 +1,23 @@
+{
+ "sc_aod_total": {
+  "evento": 0.254,
+  "mediana": 0.184,
+  "pct_janela": 62,
+  "pct_29ago": 61,
+  "pct_janela_2001_2025": 67
+ },
+ "sc_aod_fumaca": {
+  "evento": 0.129,
+  "mediana": 0.094,
+  "pct_janela": 56,
+  "pct_29ago": 59,
+  "pct_janela_2001_2025": 64
+ },
+ "corredor_aod_fumaca": {
+  "evento": 0.124,
+  "mediana": 0.172,
+  "pct_janela": 38,
+  "pct_29ago": 43,
+  "pct_janela_2001_2025": 48
+ }
+}

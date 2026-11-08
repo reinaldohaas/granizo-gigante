@@ -1,0 +1,10 @@
+rodada,area_granizo_20mm_km2,fracao_sem_nucleo_radar,granizo_perto_ilha_mm
+22/10 (KF),1071,1.0,0.0
+E0_controle (KF),1741,1.0,0.0
+E1_mynn (KF),873,0.95,0.0
+E2_inicio06 (KF),717,1.0,0.0
+E3_gf_d01 (GF),1579,0.76,38.9
+F1_gf_mynn (GF),345,0.79,0.0
+F2_gf_inicio06 (GF),234,0.62,0.0
+F3_gf_skebs1 (GF),1603,0.84,30.4
+F4_gf_skebs2 (GF),1761,0.86,36.7

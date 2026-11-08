@@ -1,0 +1,364 @@
+<title>Testes do granizo da Ilha</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Todos os testes feitos sobre o granizo gigante de 29/08/2026 em Santa Catarina, o que cada um respondeu e o que falta para explicar a volta do granizo à Ilha.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+<style>
+/* Layout: coluna de leitura de ~68ch; perguntas em lista com estado; catálogo filtrável de testes em cartões; plano em tabela. */
+:root {
+  --bg: #f4f6f8; --surface: #ffffff; --ink: #14202e; --ink-2: #445366; --muted: #66758a; --rule: #d9dee5;
+  --accent: #b5127f; --ep1: #2a78d6; --ep2: #eb6834; --ep3: #1baf7a; --grade: #e6eaef; --faixa: rgba(181,18,127,0.10);
+  --sim: #13895f; --parcial: #b86a00; --nao: #b3261e; --aberto: #66758a;
+  --f-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1520; --surface: #151f2d; --ink: #e9eef4; --ink-2: #b7c3d1; --muted: #8d9aab; --rule: #2a3748;
+  --accent: #f07bc8; --ep1: #3987e5; --ep2: #d95926; --ep3: #199e70; --grade: #223042; --faixa: rgba(240,123,200,0.14);
+  --sim: #3fbf8a; --parcial: #e3a33a; --nao: #f2766b; --aberto: #8d9aab; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0e1520; --surface: #151f2d; --ink: #e9eef4; --ink-2: #b7c3d1; --muted: #8d9aab; --rule: #2a3748;
+  --accent: #f07bc8; --ep1: #3987e5; --ep2: #d95926; --ep3: #199e70; --grade: #223042; --faixa: rgba(240,123,200,0.14);
+  --sim: #3fbf8a; --parcial: #e3a33a; --nao: #f2766b; --aberto: #8d9aab; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 64px }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg) }
+a { color: var(--accent) }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.largo { max-width: 1180px; margin-inline: auto }
+.texto { max-width: 68ch }
+nav.secoes { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule);
+  display: flex; gap: 18px; overflow-x: auto; padding-block: 10px; font-family: var(--f-display); font-size: 17px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap }
+nav.secoes a { color: var(--ink-2); text-decoration: none }
+nav.secoes a:hover { color: var(--accent) }
+header.abre { padding-block: 56px 28px; display: grid; gap: 18px }
+.rotulo { font-family: var(--f-mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(42px, 7vw, 80px); line-height: .98; margin: 0; text-wrap: balance }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: clamp(30px, 4vw, 42px); line-height: 1.05; margin: 0; text-wrap: balance }
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 23px; margin: 0; letter-spacing: .01em }
+p { margin: 0 }
+.lead { font-size: 20px; color: var(--ink-2); max-width: 64ch }
+section { padding-block: 52px 8px; display: grid; gap: 20px; scroll-margin-top: 56px }
+.linha-tempo { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule) }
+.linha-tempo div { padding: 14px 16px 16px 0; display: grid; gap: 4px; min-width: 0 }
+.linha-tempo b { font-family: var(--f-display); font-size: 30px; line-height: 1.05; font-weight: 600 }
+.linha-tempo span { color: var(--ink-2); font-size: 15px }
+ol.perguntas { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule) }
+ol.perguntas li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 6px 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: start }
+ol.perguntas .n { font-family: var(--f-display); font-size: 34px; line-height: 1; color: var(--muted) }
+ol.perguntas h3 { font-size: 22px }
+ol.perguntas p { color: var(--ink-2); grid-column: 2 / 4 }
+.estado { font-family: var(--f-mono); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; border: 1.5px solid var(--c); color: var(--ink); white-space: nowrap; justify-self: end }
+.estado::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 6px; vertical-align: 1px }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.filtros span { font-family: var(--f-mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-right: 4px }
+.filtros button { font: 600 14px var(--f-body); color: var(--ink-2); background: var(--surface); border: 1px solid var(--rule); padding: 5px 12px; border-radius: 20px; cursor: pointer }
+.filtros button[aria-pressed="true"] { color: var(--surface); background: var(--ink); border-color: var(--ink) }
+.cartoes { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px }
+.cartao { background: var(--surface); border: 1px solid var(--rule); padding: 18px 20px; display: grid; gap: 10px; align-content: start; min-width: 0 }
+.cartao .topo { display: flex; justify-content: space-between; gap: 10px; align-items: start }
+.cartao .grupo { font-family: var(--f-mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em }
+.cartao .res { font-size: 16px }
+.cartao .qs { display: flex; gap: 6px; flex-wrap: wrap }
+.cartao .qs i { font-style: normal; font-family: var(--f-mono); font-size: 12px; border: 1px solid var(--rule); padding: 1px 7px; border-radius: 3px; color: var(--ink-2) }
+details summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 15px }
+details[open] summary { margin-bottom: 8px }
+details p, details li { font-size: 15px; color: var(--ink-2) }
+details ul { margin: 6px 0 0; padding-left: 18px }
+code { font-family: var(--f-mono); font-size: 13px; overflow-wrap: anywhere }
+.grafico { background: var(--surface); border: 1px solid var(--rule); min-width: 0 }
+.grafico > div { height: 360px }
+.duas { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: start }
+.duas > * { min-width: 0 }
+figure { margin: 0; display: grid; gap: 8px }
+figure img { width: 100%; border: 1px solid var(--rule); display: block; background: #fff }
+figcaption, .nota { font-size: 14px; color: var(--muted); max-width: 90ch }
+.tabela { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule) }
+table { border-collapse: collapse; width: 100%; font-size: 15px; font-variant-numeric: tabular-nums }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); vertical-align: top }
+th { font-family: var(--f-mono); font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted) }
+td.n { text-align: right; white-space: nowrap }
+.vazio { padding: 24px; color: var(--muted); background: var(--surface); border: 1px dashed var(--rule) }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); display: grid; gap: 6px }
+@media (max-width: 520px) { ol.perguntas li { grid-template-columns: 34px minmax(0, 1fr) } .estado { grid-column: 2; justify-self: start } ol.perguntas p { grid-column: 2 } }
+</style>
+
+<nav class="secoes largo" aria-label="Seções">
+  <a href="#fundo">A pergunta</a><a href="#estrategia">Estratégia</a><a href="#balanco">Fatores</a><a href="#perguntas">Onde estamos</a><a href="#isoterma">Isoterma</a><a href="#modelo">O modelo</a><a href="#testes">Testes</a><a href="#plano">Próximos testes</a><a href="#fontes">Fontes</a>
+</nav>
+
+<main class="largo">
+<header class="abre">
+  <p class="rotulo">Granizo de 29 de agosto de 2026 · testes e resultados até 08/11/2026</p>
+  <h1>Por que o granizo gigante voltou à Ilha?</h1>
+  <p class="lead">Todos os testes feitos até aqui sobre o evento, o que cada um respondeu e o que falta. A ordem segue a lógica da investigação: primeiro saber se o modelo reproduz o granizo, depois o que o causou.</p>
+</header>
+
+<section id="fundo">
+  <p class="rotulo">A pergunta de fundo</p>
+  <h2>Comum até meados do século XIX, ausente por cerca de cem anos</h2>
+  <div class="linha-tempo">
+    <div><b>até ~1850</b><span>granizo frequente nos registros da Ilha, durante a Pequena Idade do Gelo</span></div>
+    <div><b>atmosfera mais fria</b><span>isoterma de 0 °C mais baixa: a pedra derrete menos até o chão</span></div>
+    <div><b>~100 anos</b><span>sem granizo relatado na Ilha, sustentado pelas medições</span></div>
+    <div><b>29/08/2026</b><span>pedras de até ~6 cm em Biguaçu e no norte da Ilha</span></div>
+  </div>
+  <p class="texto">Não há evidência de que a isoterma de 0 °C esteja baixando com o aquecimento global. Então o que trouxe o granizo de volta? Para responder, primeiro é preciso saber se um modelo como o WRF consegue simular esse granizo, e como. Se conseguir, dá para testar o que o causou: o ambiente, a fumaça das queimadas, a atividade solar pela via de Tinsley (carga das gotas), ou a concentração de núcleos de gelo. A análise inicial não mostrou nada de especial nesta supercélula.</p>
+</section>
+
+<section id="estrategia">
+  <p class="rotulo">Estratégia</p>
+  <h2>Seis hipóteses, três frentes, um portão no modelo</h2>
+  <p class="texto">Cada hipótese prevê algo diferente; o teste certo é o que separa uma da outra. As frentes A e C não dependem do modelo. A frente B tem um portão: enquanto o WRF não produzir granizo de 4–6 cm no lugar certo, os experimentos de causa no modelo não valem.</p>
+  <div class="tabela"><table>
+    <thead><tr><th>Hipótese</th><th>Se for verdade, esperamos ver</th><th>Frente</th><th>Hoje</th></tr></thead>
+    <tbody>
+      <tr><td><b>H1</b> Coincidência: raro, mas possível no clima atual</td><td>Ingredientes altos, mas dentro do que já ocorreu</td><td>A</td><td>Vapor e CAPE nos percentis 97–99 de agosto: extremo, mas não inédito. Falta o inventário de eventos.</td></tr>
+      <tr><td><b>H2</b> O ambiente mudou: mais vapor e instabilidade</td><td>Ingredientes em alta; dias assim mais frequentes</td><td>A</td><td>Médias de agosto de CAPE e vapor não sobem desde 1940. Falta contar dias extremos e eventos.</td></tr>
+      <tr><td><b>H3</b> Isoterma baixa no dia, como na Pequena Idade do Gelo</td><td>Isoterma de 0 °C anormalmente baixa em 29/08</td><td>A e B</td><td><b>Contrariada neste evento:</b> isoterma no percentil 94–98, alta. Fica o experimento no modelo: quanto granizo uma isoterma mais baixa daria.</td></tr>
+      <tr><td><b>H4</b> Fumaça das queimadas alterou a microfísica</td><td>Granizo maior no modelo com o aerossol do dia; fumaça nos outros eventos</td><td>B</td><td>Pico de fumaça do mês, mas normal para a época: percentil 56–59 sobre SC e 38 no corredor, contra os mesmos dias de 1980–2025. Não foi um dia de fumaça anômala. Teste no modelo espera o portão.</td></tr>
+      <tr><td><b>H5</b> Núcleos de gelo alterados</td><td>Granizo maior no modelo com os núcleos de gelo do dia</td><td>B</td><td>Sem dado nem teste.</td></tr>
+      <tr><td><b>H6</b> Atividade solar pela via de Tinsley</td><td>Campo elétrico ou Jz anômalo antes dos eventos de granizo, em vários casos</td><td>C</td><td>Choque fraco e pico de Jz no dia, mas depois do granizo do oeste. Precisa de vários eventos e da grandeza certa.</td></tr>
+    </tbody></table></div>
+  <div class="duas">
+    <div style="display:grid;gap:6px"><h3>A · Observação e estatística</h3><p class="nota">Ambiente do dia contra a climatologia; inventário de granizo gigante (Ilha no século XIX, Sul do Brasil 2000–2026); frequência de dias com o mesmo ambiente. O inventário é a amostra de que H1, H2 e H6 precisam.</p></div>
+    <div style="display:grid;gap:6px"><h3>B · Modelo, com portão</h3><p class="nota">Portão: microfísica com granizo na rodada que cobre o oeste, com Grell-Freitas. Depois: isoterma da Pequena Idade do Gelo (H3), aerossol e núcleos de gelo (H4, H5).</p></div>
+    <div style="display:grid;gap:6px"><h3>C · Clima espacial</h3><p class="nota">Só por observação, porque o WRF não representa a via de Tinsley: compostos de vários eventos com campo elétrico de superfície ou Jz sem o ciclo diurno.</p></div>
+  </div>
+</section>
+
+<section id="balanco">
+  <p class="rotulo">Balanço de fatores · Grande Florianópolis</p>
+  <h2>Quase tudo nos dados era contra o granizo gigante</h2>
+  <p class="texto">Os indicadores que costumam acompanhar granizo grande, no ambiente, no radar, no satélite e nos raios, estão ausentes ou contrários na célula da Ilha. O que foi extremo é a umidade e a instabilidade para a época, e a organização das tempestades. Por isso a pergunta continua aberta: o que fez esta célula produzir pedras de ~6 cm?</p>
+  <div class="tabela"><table>
+    <thead><tr><th>Fator</th><th>Para granizo grande, espera-se</th><th>Em 29/08 na Ilha</th><th>Fonte</th><th>Sentido</th></tr></thead>
+    <tbody>
+      <tr><td>Isoterma de 0 °C</td><td>baixa: a pedra derrete menos</td><td>4.487 m, percentil 94 de agosto (oeste: 97–98)</td><td>ERA5</td><td>__CONTRA__</td></tr>
+      <tr><td>Camada quente (base da nuvem até 0 °C)</td><td>rasa: mais água super-resfriada para a pedra crescer</td><td>4,3 km com base a 159 m, percentil 98 (oeste: 65–79)</td><td>ERA5</td><td>__CONTRA__</td></tr>
+      <tr><td>CAPE</td><td>alto em termos absolutos</td><td>887 J/kg: alto para agosto (percentil 97), modesto para granizo grande</td><td>ERA5</td><td>__NEUTRO__</td></tr>
+      <tr><td>Horário</td><td>tarde, camada limite aquecida</td><td>22 UTC, depois do pôr do sol (20:58)</td><td>—</td><td>__CONTRA__</td></tr>
+      <tr><td>Topo da nuvem</td><td>topo penetrante, topo muito frio, partículas pequenas no topo</td><td>−62,9 °C, igual às outras células; sem topo penetrante; anomalia de C13−C07 de 0,0 K</td><td>GOES-19</td><td>__CONTRA__</td></tr>
+      <tr><td>Gotas no topo (técnica de Rosenfeld)</td><td>gotas pequenas até −30/−40 °C: ascendente forte, água super-resfriada até alto</td><td>sem perfil válido das células com granizo (noite ou sol baixo); as de dia são iguais às do RS de 2024</td><td>GOES-19</td><td>__NEUTRO__</td></tr>
+      <tr><td>Raios</td><td>taxa alta e salto antes do granizo</td><td>até 320 por 10 min (percentil 80 de 224 trajetórias); sem salto</td><td>GLM</td><td>__CONTRA__</td></tr>
+      <tr><td>Refletividade</td><td>topo da escala do radar</td><td>núcleo grande (percentil 88), mas sem chegar ao magenta; no dia só um núcleo, sobre o mar, chegou</td><td>MaxCAPPI</td><td>__CONTRA__</td></tr>
+      <tr><td>Rotação</td><td>mesociclone</td><td>não observada (radar sem Doppler); fraca ou ausente no modelo</td><td>radar, WRF</td><td>__NEUTRO__</td></tr>
+      <tr><td>Fumaça</td><td>a discutir: mais núcleos de condensação podem aumentar a água super-resfriada</td><td>__FUMACA__</td><td>MERRA-2</td><td>__FUMACA_SENTIDO__</td></tr>
+      <tr><td>Vapor d’água</td><td>muita água disponível</td><td>42 mm integrados, percentil 99,4 de agosto</td><td>ERA5</td><td>__FAVOR__</td></tr>
+      <tr><td>Cisalhamento profundo</td><td>forte: tempestades organizadas e longevas</td><td>34 m/s entre 925 e 500 hPa (resumo; não recalculado)</td><td>ERA5</td><td>__FAVOR__</td></tr>
+      <tr><td>Organização</td><td>células longevas</td><td>trens de células por 400–490 km; corredor de 27,3–27,5°S repetido no dia</td><td>GLM</td><td>__FAVOR__</td></tr>
+    </tbody></table></div>
+  <p class="nota">Ressalvas: as cores do MaxCAPPI da REDEMET não têm calibração em dBZ, e a 110 km o feixe do Morro da Igreja está a 1,5–2 km de altura. O GOES-19 tem pixel de 2 km e uma imagem a cada 10 min. A base da nuvem foi estimada por 125 m por grau entre temperatura e ponto de orvalho. Em contraste com a Ilha, a célula de Joaçaba foi a mais elétrica do dia (percentil 97) e teve salto de raios às 10:00, sobre a cidade.</p>
+  <div class="duas">
+    <div style="display:grid;gap:12px">
+      <h3>Satélite pela técnica de Rosenfeld</h3>
+      <p>O perfil do raio efetivo das gotas (r_e) contra a temperatura do topo mostra até onde a nuvem mantém gotas pequenas, sinal de ascendente forte e de água super-resfriada em altura. Aplicamos o mesmo script do caso do RS a 24 células de 29/08, das 11 às 20 UTC.</p>
+      <p><b>As células com granizo ficam fora da técnica.</b> Ela precisa de sol (ângulo zenital &lt; 78°). As do oeste deram granizo de madrugada. A de Joaçaba (trajetória 107) só tem perfil às 11 UTC, quando todas as células, inclusive as do mar, saem com r_e abaixo de 8,5 µm: é o sol baixo, não a nuvem. A da Ilha nasceu às 20:10 e o sol se pôs às 20:58.</p>
+      <p>As células de dia com raios (12–19 UTC) mantêm gotas pequenas até −35/−40 °C. Isso não as separa das do mar nem das do RS em maio de 2024, que deram enchente e não granizo gigante. Nas do RS, aliás, as gotas ficam ainda menores.</p>
+      <p class="nota">r_e é uma estimativa a partir da reflectância de 3,9 µm, com piso de 5 µm. Abaixo de −30 °C quase todos os perfis encostam nesse piso.</p>
+    </div>
+    <figure><img src="__IMG_ROSENFELD__" alt="Perfis de raio efetivo contra temperatura do topo: as células das 11 UTC com gotas pequenas em toda a coluna por efeito do sol baixo; as de dia com e sem raios parecidas; as do RS de 2024 com gotas ainda menores"><figcaption>Mediana do r_e por faixa de temperatura do topo; sombra = quartis entre células. GOES-19 (29/08) e GOES-16 (RS, maio de 2024).</figcaption></figure>
+  </div>
+</section>
+
+<section id="perguntas">
+  <p class="rotulo">Onde estamos em cada pergunta</p>
+  <h2>Nenhuma pergunta está respondida ainda; a primeira já tem um “não, como está”</h2>
+  <ol class="perguntas" id="lista-perguntas"></ol>
+</section>
+
+<section id="isoterma">
+  <p class="rotulo">Teste novo · ERA5 1940–2026</p>
+  <h2>A isoterma de 0 °C estava alta; o extremo foi o vapor</h2>
+  __TEXTO_ISOTERMA__
+  <div class="duas">
+    <div class="grafico"><div id="g-hist" role="img" aria-label="Distribuição da altura da isoterma de 0 °C em agosto sobre Biguaçu, com o valor do dia do granizo"></div></div>
+    <div class="grafico"><div id="g-anual" role="img" aria-label="Média de agosto da altura da isoterma de 0 °C de 1940 a 2026 em três pontos"></div></div>
+  </div>
+  <div class="tabela"><table id="tab-iso"><thead><tr><th>Lugar</th><th>Hora</th><th>Isoterma 0 °C (m)</th><th>Percentil</th><th>CAPE (J/kg)</th><th>Percentil</th><th>Vapor (mm)</th><th>Percentil</th><th>Tendência da isoterma</th></tr></thead><tbody></tbody></table></div>
+  <p class="nota">ERA5, 18 e 21 UTC de todos os dias de agosto. Altura acima do solo de cada ponto; o percentil compara com todos os dias de agosto de 1940 a 2025 na mesma hora. Tendência: regressão linear das médias de agosto, 1940–2025.</p>
+</section>
+
+<section id="modelo">
+  <p class="rotulo">Pergunta 1 · o WRF simula o granizo?</p>
+  <h2>Acerta onde e quando há convecção, não a supercélula nem o granizo</h2>
+  <div class="duas">
+    <figure><img src="__IMG_O1__" alt="Mapa da trilha do HAILCAST simulada pelo WRF com grade de 3 km estendida ao oeste, sobre as trajetórias observadas pelos raios: quase nenhum granizo simulado ao longo das trajetórias com granizo relatado"><figcaption>Rodada O1: grade de 3 km até 58,6°W, início às 00Z de 29/08, Kain-Fritsch no d01. Trilha do HAILCAST de 00 a 22 UTC sobre as trajetórias observadas.</figcaption></figure>
+    <div style="display:grid;gap:14px">
+      <p>Com a grade de 3 km cobrindo o oeste, o modelo põe eco ≥ 50 dBZ a 1–19 km de cada município com granizo, na hora do relato. Mas não há granizo simulado perto de nenhum deles, nem célula girante a menos de ~200 km.</p>
+      <div class="tabela"><table id="tab-o1"><thead><tr><th>Município</th><th>Eco ≥ 50 dBZ</th><th>Granizo simulado</th><th>Rotação</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+  <div class="duas">
+    <div style="display:grid;gap:12px">
+      <h3>O caso da Ilha e o esquema de cumulus</h3>
+      <p>No d03 (1 km), só os três membros com Grell-Freitas na grade de 9 km põem a célula no lugar às 21:16 UTC e geram granizo perto da Ilha, de 30 a 42 mm, abaixo dos 50–60 mm observados. O d01 mostra por quê: o Kain-Fritsch chove sem parar desde as 13 UTC ao longo do corredor e consome a instabilidade. No ponto onde a célula nasceu, às 20 UTC, o θe em 850 hPa é 7 K maior com Grell-Freitas.</p>
+      <p class="nota">Isso explica o posicionamento, não o tamanho do granizo. O Morrison usado tem uma única categoria densa (graupel), sem granizo: o tamanho só vem do diagnóstico HAILCAST.</p>
+    </div>
+    <figure><img src="__IMG_KFGF__" alt="Três painéis: chuva convectiva acumulada muito maior no Kain-Fritsch; theta-e em 850 hPa maior no Grell-Freitas no fim da tarde; mapa da diferença de theta-e em 850 hPa às 19 UTC"><figcaption>d01 (9 km), E0 Kain-Fritsch × E3 Grell-Freitas, 12 a 22 UTC.</figcaption></figure>
+  </div>
+  <div class="duas">
+    <div style="display:grid;gap:12px">
+      <h3>O Grell-Freitas acerta a Ilha, mas põe granizo onde o radar não viu</h3>
+      <p>Nos membros com Grell-Freitas, 62–86% da área com granizo simulado ≥ 20 mm fica a mais de 25 km de qualquer núcleo do radar. Nos membros com Kain-Fritsch, 95–100%. O acerto na Ilha vem junto com muito granizo em lugares sem célula forte observada. Sem relatos espalhados não dá para chamar tudo de alarme falso, mas também não dá para dizer que o Grell-Freitas prevê melhor o granizo.</p>
+      <h3>Cumulus ou microfísica?</h3>
+      <p>As duas coisas, em papéis diferentes. O esquema de cumulus só roda no d01 (9 km): ele decide quanto da instabilidade sobra e onde, e o d02 e o d03 herdam isso pelas bordas. O granizo vem da microfísica explícita do d03 mais o HAILCAST. Como o Morrison usado não tem categoria de granizo, nenhum esquema de cumulus resolve o tamanho. O teste limpo é tirar o cumulus de vez (grade externa de 3 km) e trocar a microfísica (testes 1 e 8 abaixo).</p>
+    </div>
+    <div class="tabela"><table>
+      <thead><tr><th>Membro</th><th>d01</th><th>Área ≥ 20 mm (km²)</th><th>Sem núcleo de radar</th><th>Granizo perto da Ilha</th></tr></thead>
+      <tbody>
+        <tr><td>22/10</td><td>KF</td><td class="n">1.071</td><td class="n">100%</td><td class="n">0</td></tr>
+        <tr><td>E0</td><td>KF</td><td class="n">1.741</td><td class="n">100%</td><td class="n">0</td></tr>
+        <tr><td>E1 MYNN</td><td>KF</td><td class="n">873</td><td class="n">95%</td><td class="n">0</td></tr>
+        <tr><td>E2 06Z</td><td>KF</td><td class="n">717</td><td class="n">100%</td><td class="n">0</td></tr>
+        <tr><td>E3</td><td>GF</td><td class="n">1.579</td><td class="n">76%</td><td class="n">38,9 mm</td></tr>
+        <tr><td>F1 MYNN</td><td>GF</td><td class="n">345</td><td class="n">79%</td><td class="n">0</td></tr>
+        <tr><td>F2 06Z</td><td>GF</td><td class="n">234</td><td class="n">62%</td><td class="n">0</td></tr>
+        <tr><td>F3 SKEBS</td><td>GF</td><td class="n">1.603</td><td class="n">84%</td><td class="n">30,4 mm</td></tr>
+        <tr><td>F4 SKEBS</td><td>GF</td><td class="n">1.761</td><td class="n">86%</td><td class="n">36,7 mm</td></tr>
+      </tbody></table>
+      <p class="nota" style="padding:8px 12px">d03, 18 UTC de 29/08 a 02 UTC de 30/08. Núcleo do radar: vermelho ou magenta no MaxCAPPI a ±20 min, raio de 25 km.</p>
+    </div>
+  </div>
+</section>
+
+<section id="testes">
+  <p class="rotulo">Catálogo</p>
+  <h2>Todos os testes</h2>
+  <div class="filtros" role="group" aria-label="Filtrar por grupo" id="f-grupo"><span>Grupo</span></div>
+  <div class="filtros" role="group" aria-label="Filtrar por pergunta" id="f-perg"><span>Pergunta</span></div>
+  <p class="nota" id="contagem"></p>
+  <div class="cartoes" id="cartoes"></div>
+</section>
+
+<section id="plano">
+  <p class="rotulo">Próximos testes</p>
+  <h2>O que separa as hipóteses</h2>
+  <p class="texto">Cada teste abaixo foi escolhido porque um resultado e o resultado oposto levam a conclusões diferentes. Os que mexem no modelo dependem de primeiro haver uma configuração que produza granizo (teste 1).</p>
+  <div class="tabela"><table>
+    <thead><tr><th>#</th><th>Teste</th><th>Pergunta</th><th>Como</th><th>O que o resultado diria</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Microfísica com granizo</td><td>1</td><td>Mesma rodada O1 (oeste coberto, Grell-Freitas no d01) com NSSL 2 momentos com granizo, P3, ou Morrison com granizo (<code>morr_rimed_ice = 1</code>, a confirmar na 4.7.1)</td><td>Se surgirem pedras de 4–6 cm nos lugares dos relatos, o modelo serve para testar causas. Se não, o problema está na dinâmica ou no ambiente de entrada.</td></tr>
+      <tr><td>2</td><td>Isoterma da Pequena Idade do Gelo</td><td>2, 5</td><td>Pseudo-aquecimento ao contrário: esfriar a troposfera de entrada (ERA5) até a isoterma da época; e o oposto, aquecer</td><td>Testa diretamente a hipótese de fundo: quanto o granizo na Ilha depende da altura da isoterma.</td></tr>
+      <tr><td>3</td><td>Aerossol e núcleos de gelo</td><td>2</td><td>Thompson-Eidhammer (aerossol “water friendly” e “ice friendly”): variar núcleos de condensação (fumaça) e de gelo (poeira) entre limpo e o observado em 29/08</td><td>Mostra se a fumaça do dia muda o tamanho do granizo, e em que sentido; a literatura não é unânime.</td></tr>
+      <tr><td>4</td><td>Ingredientes ao longo do corredor</td><td>3, 5</td><td>ERA5 3D: CAPE na zona de crescimento (−10 a −30 °C), cisalhamento 0–6 km, taxa de queda 700–500 hPa, isoterma, nos dias com e sem granizo</td><td>Diz se o ambiente de 29/08 foi raro ou comum, e o que o distingue.</td></tr>
+      <tr><td>5</td><td>Inventário de granizo gigante</td><td>4, 5</td><td>Registros da Ilha no século XIX (jornais), S2ID e Defesa Civil, fotos com escala; tamanho, lugar, hora</td><td>Mostra onde mais caiu granizo grande e o que esses lugares e dias têm em comum.</td></tr>
+      <tr><td>6</td><td>Outros eventos recentes no Sul</td><td>4, 5</td><td>Mesmo rastreio por raios e mesmo ERA5 para os eventos de granizo gigante de 2020–2026</td><td>Testa se o tipo de dia de 29/08 está ficando mais frequente.</td></tr>
+      <tr><td>7</td><td>Tinsley com a grandeza certa</td><td>2</td><td>Campo elétrico de superfície (eletricímetros) ou corrente de condução, em vários eventos; Jz da rede com o ciclo Sq removido</td><td>O índice dos magnetômetros é corrente ionosférica; sem a corrente de condução, a via de Tinsley fica sem teste.</td></tr>
+      <tr><td>8</td><td>Sem esquema de cumulus</td><td>1</td><td>Grade externa de 3 km direto do ERA5 sobre o corredor (sem d01 de 9 km), combinada com o teste 1</td><td>Se a célula da Ilha e o granizo aparecerem sem cumulus, o acerto do Grell-Freitas era só de ambiente herdado. Se não aparecerem, a convecção explícita não basta.</td></tr>
+      <tr><td>9</td><td>Verificação do granizo simulado</td><td>1</td><td>Relatos e danos fora da Ilha (Defesa Civil, seguradoras, Epagri) nos lugares onde os membros põem granizo sem núcleo de radar</td><td>Separa alarme falso de granizo que ninguém relatou; sem isso não se compara Grell-Freitas e Kain-Fritsch.</td></tr>
+    </tbody></table></div>
+</section>
+
+<section id="fontes">
+  <p class="rotulo">Fontes e arquivos</p>
+  <div class="texto" style="display:grid;gap:8px;font-size:15px">
+    <p>Página do evento, com o mapa das trajetórias: <a href="https://reinaldohaas.github.io/granizo-gigante/">reinaldohaas.github.io/granizo-gigante</a>. Código e tabelas: <a href="https://github.com/reinaldohaas/granizo-gigante">github.com/reinaldohaas/granizo-gigante</a>; visualização 3D em <a href="https://github.com/reinaldohaas/granizo_gigante">granizo_gigante</a>.</p>
+    <p>Dados: GLM e ABI do GOES-19 (NOAA), MaxCAPPI do DECEA/REDEMET, ERA5 (Copernicus), CAMS, MERRA-2 (NASA), GFZ, WDC Kyoto, OMNI, Universidade de Oulu, Embrace/INPE. Simulações: WRF-Chem 4.7.1 no VLab. Relatos: <a href="https://www.defesacivil.sc.gov.br/2026/08/31/sete-municipios-decretam-situacao-de-emergencia-e-defesa-civil-entrega-itens-de-assistencia-humanitaria-a-cidades-atingidas-por-granizo/">Defesa Civil SC</a>, <a href="https://clicrdc.com.br/tempo/granizo-e-vendaval-atingem-municipios-do-oeste-de-sc-e-deixam-mais-de-345-residencias-afetadas/">ClicRDC</a>, <a href="https://ndmais.com.br/tempo/chuva-de-granizo-assusta-e-moradores-relatam-nunca-ter-visto-nada-igual-em-sc/">ND Mais</a>, <a href="https://www.politicalivre.com.br/2026/08/chuva-com-granizo-atinge-23-municipios-em-sc-e-deixa-cinco-cidades-em-situacao-de-emergencia">Folhapress</a>.</p>
+  </div>
+  <footer>UFSC · gerado por apresentacao/build_testes.py a partir das tabelas do projeto</footer>
+</section>
+</main>
+
+<script>
+const D = /*__DADOS__*/{};
+const PERGUNTAS = [
+  { n: 1, t: 'O WRF consegue simular esse granizo?', e: 'nao', r: 'Como está, não. Acerta onde e quando há convecção, inclusive no oeste, mas não gera granizo nem rotação nos lugares dos relatos. Na Ilha, só com Grell-Freitas no d01, e abaixo do tamanho observado; e esses membros põem 62–86% do seu granizo onde o radar não viu núcleo. O Morrison usado não tem categoria de granizo: o cumulus do d01 decide o ambiente, a microfísica decide o granizo.' },
+  { n: 2, t: 'Se sim, o que causou o granizo?', e: 'parcial', r: 'Ambiente: isoterma de 0 °C alta (percentil 94–98), vapor e CAPE extremos para agosto (percentis 97–99); não foi uma isoterma baixa. Fumaça: pico do mês no dia (AOD 0,25–0,36), mas na mediana dos mesmos dias de 1980–2025 (percentil 56–59 sobre SC, 38 no corredor). Atividade solar: choque fraco em 28/08 e pico de Jz ao meio-dia de 29/08, depois do granizo do oeste e antes do da Ilha. Núcleos de gelo: ainda sem teste.' },
+  { n: 3, t: 'Por que um surto de supercélulas?', e: 'parcial', r: 'Trens de células com raios nascem na Argentina e no extremo-oeste e cruzam o estado a ~20 m/s por 400–490 km, em faixas de latitude que se repetem. Rotação não é observada (radar sem Doppler): “supercélula” ainda é inferência.' },
+  { n: 4, t: 'Onde mais caiu granizo gigante, e o que há em comum?', e: 'aberto', r: 'Só a Grande Florianópolis tem tamanho documentado (“bolas de tênis” em Biguaçu, “bolas de golfe” em Ingleses). No oeste há danos (cerca de 200 casas em Ipuaçu), mas nenhuma fonte dá o tamanho.' },
+  { n: 5, t: 'Se não há nada em comum, por que só esta tempestade?', e: 'aberto', r: 'Nos topos frios, nos raios, no núcleo do radar e no ranking de 224 trajetórias, a célula da Ilha não se distinguiu das outras. A técnica de Rosenfeld não alcança as células com granizo (noite e sol baixo). O que a diferenciou ainda não apareceu nos testes; o único extremo local é a umidade.' },
+];
+const ESTADO = { sim: ['--sim', 'feito'], parcial: ['--parcial', 'parcial'], nao: ['--nao', 'não, como está'], aberto: ['--aberto', 'aberta'],
+  feito: ['--sim', 'feito'], limitado: ['--parcial', 'limitado'], pendente: ['--aberto', 'pendente'], corrigido: ['--sim', 'corrigido'] };
+const TESTES = [
+  { g: 'Observação', q: [3, 4], e: 'feito', t: 'Relatos compilados', r: 'Granizo na madrugada no Oeste, de manhã no Meio-Oeste e às ~19h locais na Grande Florianópolis; mais de mil casas atingidas.', m: 'Defesa Civil SC, imprensa regional, Epagri/Ciram.', f: [] },
+  { g: 'Observação', q: [3], e: 'feito', t: 'Trajetórias pelos raios (GLM)', r: '224 trajetórias de 1 h ou mais em 36 h; as que deram granizo nascem em Misiones e no extremo-oeste e andam 400–490 km para leste a ~20 m/s.', m: 'Flashes do GLM agrupados a cada 10 min em células de 0,1° (≥ 5 flashes) e ligados até 45 km entre intervalos.', f: ['satelite/glm_estado.py', 'satelite/glm_trajetorias.py'] },
+  { g: 'Observação', q: [3, 4], e: 'feito', t: 'Relato × célula', r: 'Todo relato com hora tem uma célula com raios a ≤ 25 km na janela: trajetórias 81 e 65 no Oeste, 107 em Joaçaba e Campos Novos, 185 em Biguaçu e na Ilha.', m: 'Menor distância entre o centróide do município e as células na janela do relato.', f: ['satelite/glm_relatos.py'] },
+  { g: 'Observação', q: [3], e: 'feito', t: 'Radar Morro da Igreja', r: 'Núcleo nasce às 20:36 na borda da Serra Geral, a ~22 m/s; sobre Biguaçu e o norte da Ilha às 22:16.', m: 'Pixels vermelhos e magenta do MaxCAPPI (~≥ 50 dBZ, sem calibração).', f: ['radar/plotar_radar_mi.py'] },
+  { g: 'Observação', q: [3], e: 'limitado', t: 'Radar de Santiago e mosaico', r: 'Santiago sem eco no dia; Morro da Igreja não alcança o oeste. O rastreio desde o oeste teve de vir dos raios.', m: 'Mosaico Santiago + Morro da Igreja em grade de 0,02°.', f: ['radar/trajetoria_estado.py'] },
+  { g: 'Observação', q: [5], e: 'feito', t: 'Topos e raios sobre a Ilha (GOES-19)', r: 'Topo mais frio −62,9 °C às 22:20, 143–348 flashes por 10 min: igual a outras células da noite. Sem topo penetrante; a subida de C13−C07 é efeito do pôr do sol.', m: '49 varreduras do ABI, 21:00–05:00 UTC; GLM a cada 10 min.', f: ['satelite/resumo_evento.csv'] },
+  { g: 'Observação', q: [4], e: 'limitado', t: 'Tamanho das pedras fora da Ilha', r: 'Nenhuma fonte dá tamanho no Oeste ou no Meio-Oeste; só danos.', m: 'Busca em Defesa Civil e imprensa regional.', f: [] },
+  { g: 'Ambiente', q: [2, 5], e: 'feito', t: 'Isoterma de 0 °C, CAPE e vapor (ERA5 1940–2026)', r: 'Isoterma alta no dia (percentil 94–98 de agosto), vapor e CAPE nos percentis 97–99 na Ilha; a isoterma de agosto sobe ~24 m por década desde 1940.', m: 'ERA5, 18 e 21 UTC de agosto, três pontos do caminho das células.', f: ['ambiente/era5_isoterma.py', 'ambiente/isoterma_analise.py'] },
+  { g: 'Ambiente', q: [2, 5], e: 'feito', t: 'Camada quente (base da nuvem até 0 °C)', r: 'Na Ilha, 4,3 km com base a 159 m (percentil 98 de agosto): perfil quase tropical, que favorece chuva quente e reduz a água super-resfriada. No oeste, comum (percentis 65–79).', m: 'ERA5: base da nuvem ≈ 125 m por grau entre T e ponto de orvalho a 2 m; isoterma de 0 °C acima do solo.', f: ['ambiente/camada_quente.py'] },
+  { g: 'Observação', q: [5], e: 'feito', t: 'Raios: ranking e salto', r: 'A célula da Ilha teve até 320 flashes por 10 min (percentil 80 de 224 trajetórias) e nenhum salto de raios. A de Joaçaba foi a mais elétrica do dia (percentil 97), com salto às 10:00 sobre a cidade.', m: 'Máximo e total de flashes por trajetória; salto quando a variação da taxa passa de 2σ dos 5 intervalos anteriores.', f: ['satelite/glm_salto_raios.py'] },
+  { g: 'Observação', q: [5], e: 'feito', t: 'Núcleo de radar da Ilha × outros', r: 'Núcleo de 100–113 km² (percentil 88 de 195 núcleos do dia), mas sem atingir o magenta, o topo da escala; só um núcleo do dia, sobre o mar, chegou lá.', m: 'Pixels vermelhos e magenta do MaxCAPPI do Morro da Igreja, 08 UTC de 29/08 a 06 UTC de 30/08.', f: ['radar/nucleo_ilha_ranking.py'] },
+  { g: 'Observação', q: [5], e: 'limitado', t: 'Gotas no topo pela técnica de Rosenfeld', r: 'As células com granizo ficam fora: as do oeste foram de madrugada, a de Joaçaba só tem perfil às 11 UTC (sol baixo, todas as células saem com r_e < 8,5 µm), a da Ilha nasceu 48 min antes do pôr do sol. As de dia com raios mantêm gotas pequenas até −35/−40 °C, como as do RS de 2024.', m: 'Script 13_rosenfeld_celulas.py do caso do RS: r_e proxy de 3,9 µm (C07, C14), núcleos < −55 °C ancorados no GLM, 24 células de 11 a 20 UTC.', f: ['satelite/rosenfeld_29ago.py', 'satelite/rosenfeld_resumo.py'] },
+  { g: 'Ambiente', q: [2], e: 'pendente', t: 'Ambiente às 18 UTC no resumo do I-SSTS', r: 'CAPE 2.376 J/kg, cisalhamento 925–500 hPa de 34 m/s, ar seco em 500 hPa: valores do resumo, ainda não recalculados.', m: 'ERA5 em níveis de pressão.', f: [] },
+  { g: 'Modelo', q: [1], e: 'corrigido', t: 'Auditoria dos números do WRF', r: '4 de 5 conferem; o HAIL_MAX2D de 60,3 mm era a borda do domínio; a corrente ascendente de 48,4 m/s é no Vale do Tijucas.', m: 'Recalculado direto do wrfout.', f: [] },
+  { g: 'Modelo', q: [1], e: 'corrigido', t: 'Visualização 3D', r: 'Dados reais, mas a altura das nuvens e a projeção estavam erradas; refeita com PH+PHB e STAND_LON.', m: 'ParaView.', f: [] },
+  { g: 'Modelo', q: [1], e: 'feito', t: 'Rodada de controle (22/10)', r: 'Granizo de 49,8 mm no Vale do Tijucas às 19:30, umas 2 h antes e ~25–30 km ao norte da célula observada.', m: 'WRF-Chem 4.7.1, 9/3/1 km, Morrison, Kain-Fritsch no d01.', f: [] },
+  { g: 'Modelo', q: [1], e: 'feito', t: 'Ensembles E e F (8 membros)', r: 'Só Grell-Freitas no d01 põe a célula da Ilha no lugar e dá 30–42 mm perto da Ilha; MYNN e início às 06Z pioram; todos disparam convecção cedo.', m: 'Distância ao núcleo do radar (eco ≥ 50 dBZ) e HAILCAST a ≤ 25 km dos relatos.', f: ['radar/resumo_ensemble.py'] },
+  { g: 'Modelo', q: [1], e: 'feito', t: 'Kain-Fritsch × Grell-Freitas no d01', r: 'O Kain-Fritsch chove 10 mm parametrizados no corredor até as 20 UTC (Grell-Freitas 2 mm) e deixa o θe em 850 hPa 7 K menor onde a célula da Ilha nasce.', m: 'Recortes do d01 de E0 e E3, 12–22 UTC.', f: ['radar/d01_kf_vs_gf.py'] },
+  { g: 'Modelo', q: [1], e: 'feito', t: 'Granizo simulado sem núcleo no radar', r: 'Com Grell-Freitas, 62–86% da área com granizo ≥ 20 mm fica a mais de 25 km de qualquer núcleo do radar; com Kain-Fritsch, 95–100%. O acerto na Ilha vem com muito granizo onde o radar não viu célula forte.', m: 'HAILCAST ≥ 20 mm no d03, 18–02 UTC, contra os núcleos do MaxCAPPI a ±20 min, raio de 25 km.', f: ['radar/granizo_simulado_falso.py'] },
+  { g: 'Modelo', q: [1], e: 'feito', t: 'Grade de 3 km cobrindo o oeste (O1)', r: 'Eco ≥ 50 dBZ a 1–19 km de todos os relatos na hora certa, mas granizo simulado zero e rotação a ~200 km ou mais.', m: 'd02 até 58,6°W, início 00Z, Kain-Fritsch no d01; HAILCAST e helicidade a ≤ 25 km.', f: ['radar/oeste_o1_vs_relatos.py'] },
+  { g: 'Modelo', q: [3], e: 'feito', t: 'Métrica contra o radar', r: 'O MaxCAPPI não mede rotação: a comparação justa é por refletividade, e por ela os membros ficam parecidos perto da Ilha.', m: 'Eco ≥ 50 dBZ × células com helicidade ≥ 75.', f: [] },
+  { g: 'Aerossol', q: [2], e: 'feito', t: 'AOD do CAMS', r: 'Pulso de fumaça sobre SC com pico em 29/08: AOD 0,36, metade fumaça, vindo do corredor do centro-sul.', m: 'Análise operacional do CAMS, caixa 25,5–29,5°S, 47,5–54°W.', f: ['clima_espacial/aod_cams.py'] },
+  { g: 'Aerossol', q: [2], e: 'feito', t: 'AOD do MERRA-2 e climatologia', r: 'Pico de 0,25 no dia; agosto de 2026 no percentil 22 (fumaça no 13) dos agostos desde 1980, em tendência de queda.', m: 'MERRA-2 horário e mensal, 1980–2026.', f: ['clima_espacial/aod_merra2.py'] },
+  { g: 'Aerossol', q: [2], e: 'feito', t: 'Fumaça do dia × mesmos dias de 1980–2025', r: 'AOD de fumaça 0,13 sobre SC: percentil 56 dos dias 25/08–02/09 de 1980–2025 e 59 entre os 29/08; AOD total no percentil 62. No corredor de transporte, percentil 38. Foi o pico do mês, não um dia anômalo.', m: 'MERRA-2 horário, média diária, 9 dias × 47 anos, mesmas caixas de aod_merra2.py.', f: ['clima_espacial/aod_merra2_clima_diaria.py'] },
+  { g: 'Aerossol', q: [2], e: 'pendente', t: 'Núcleos de gelo (INP)', r: 'Sem dado nem teste ainda.', m: 'Proposto no teste 3 do plano.', f: [] },
+  { g: 'Clima espacial', q: [2], e: 'feito', t: 'Kp, Dst, Ey, AE', r: 'Choque do vento solar na manhã de 28/08 (Dst +22 → −38 nT, Kp 4,3), menor que o de 18/08; calma às 22 UTC.', m: 'GFZ, WDC Kyoto, OMNI.', f: ['clima_espacial/baixar_series_espaciais.py'] },
+  { g: 'Clima espacial', q: [2], e: 'feito', t: 'Nêutrons (Forbush)', r: 'Queda de ~1,5% em Oulu em 29–30/08; menor e ruidosa em Dome C.', m: 'Banco de dados de Oulu (NMDB fora do ar).', f: [] },
+  { g: 'Clima espacial', q: [2], e: 'feito', t: 'Jz da rede de magnetômetros', r: 'Às 12–18 UTC de 29/08, o mais intenso de 27 dias (−27 nA/m², mediana −16); calmo às 22 UTC. Pelo método com controle de qualidade, a série é frágil.', m: 'Inversão da rede Embrace (9–10 estações); unidade real nA/m².', f: ['clima_espacial/jz_rede_14_estacoes_2026.py'] },
+  { g: 'Auditoria', q: [5], e: 'corrigido', t: 'Frases do satélite no resumo', r: '−64,6 °C era o mínimo do domínio, não da Ilha; C15−C13 só não foi positiva entre 22 e 23 UTC.', m: 'Contra satelite/resumo_evento.csv.', f: [] },
+];
+
+const tok = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function chip(e) { const [c, t] = ESTADO[e]; return `<span class="estado" style="--c:var(${c})">${t}</span>`; }
+
+function perguntas() {
+  document.getElementById('lista-perguntas').innerHTML = PERGUNTAS.map(p =>
+    `<li><span class="n">${p.n}</span><h3>${p.t}</h3>${chip(p.e)}<p>${p.r}</p></li>`).join('');
+}
+
+const filtro = { g: 'Todos', q: 0 };
+function filtros() {
+  const grupos = ['Todos', ...new Set(TESTES.map(t => t.g))];
+  const fg = document.getElementById('f-grupo'), fq = document.getElementById('f-perg');
+  fg.querySelectorAll('button').forEach(b => b.remove()); fq.querySelectorAll('button').forEach(b => b.remove());
+  grupos.forEach(g => { const b = document.createElement('button'); b.type = 'button'; b.textContent = g; b.setAttribute('aria-pressed', filtro.g === g); b.onclick = () => { filtro.g = g; filtros(); cartoes(); }; fg.appendChild(b); });
+  [0, 1, 2, 3, 4, 5].forEach(q => { const b = document.createElement('button'); b.type = 'button'; b.textContent = q ? 'P' + q : 'Todas'; b.setAttribute('aria-pressed', filtro.q === q); b.onclick = () => { filtro.q = q; filtros(); cartoes(); }; fq.appendChild(b); });
+}
+function cartoes() {
+  const sel = TESTES.filter(t => (filtro.g === 'Todos' || t.g === filtro.g) && (!filtro.q || t.q.includes(filtro.q)));
+  document.getElementById('contagem').textContent = `${sel.length} de ${TESTES.length} testes`;
+  document.getElementById('cartoes').innerHTML = sel.length ? sel.map(t => `<article class="cartao">
+    <div class="topo"><div><p class="grupo">${t.g}</p><h3>${t.t}</h3></div>${chip(t.e)}</div>
+    <p class="res">${t.r}</p>
+    <div class="qs">${t.q.map(q => `<i>P${q}</i>`).join('')}</div>
+    <details><summary>Como foi feito</summary><p>${t.m}</p>${t.f.length ? '<ul>' + t.f.map(f => `<li><code>${f}</code></li>`).join('') + '</ul>' : ''}</details>
+  </article>`).join('') : '<p class="vazio">Nenhum teste com esse filtro.</p>';
+}
+
+function tabelas() {
+  document.querySelector('#tab-o1 tbody').innerHTML = (D.o1 || []).map(r => `<tr><td>${r.municipio}</td><td class="n">${r.dist_eco50_km != null ? r.dist_eco50_km + ' km' : '—'}</td><td class="n">${String(r.hailcast_max_mm).replace('.', ',')} mm</td><td class="n">${r.dist_rotacao_km != null ? r.dist_rotacao_km + ' km' : 'nenhuma'}</td></tr>`).join('');
+  const f = (v, d = 0) => v == null ? '—' : Number(v).toLocaleString('pt-BR', { maximumFractionDigits: d, minimumFractionDigits: d });
+  document.querySelector('#tab-iso tbody').innerHTML = (D.iso_resumo || []).map(r => `<tr><td>${r.lugar}</td><td>${r.hora_evento}</td><td class="n">${f(r.isoterma0_m)}</td><td class="n">${f(r.isoterma0_m_percentil)}</td><td class="n">${f(r.cape_jkg)}</td><td class="n">${f(r.cape_jkg_percentil)}</td><td class="n">${f(r.vapor_mm, 1)}</td><td class="n">${f(r.vapor_mm_percentil)}</td><td class="n">${f(r.isoterma0_m_tend_por_decada, 1)} m/década</td></tr>`).join('');
+}
+
+function base(extra) {
+  return Object.assign({ paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { family: tok('--f-body'), color: tok('--ink'), size: 13 },
+    margin: { l: 58, r: 14, t: 14, b: 46 }, legend: { orientation: 'h', y: -0.2, x: 0, font: { size: 12 } } }, extra || {});
+}
+function eixo(extra) { return Object.assign({ gridcolor: tok('--grade'), zerolinecolor: tok('--rule'), linecolor: tok('--rule') }, extra || {}); }
+const CFG = { displaylogo: false, responsive: true };
+function graficos() {
+  if (!window.Plotly || !D.iso_hist) return;
+  const h = D.iso_hist;
+  Plotly.react('g-hist', [{ x: h.valores, type: 'histogram', nbinsx: 40, name: 'agosto 1940–2025, ' + h.hora, marker: { color: tok('--ep1'), opacity: 0.75 }, hovertemplate: '%{x} m: %{y} dias<extra></extra>' }],
+    base({ xaxis: eixo({ title: { text: 'isoterma de 0 °C acima do solo (m), ' + h.lugar, font: { size: 12 } } }), yaxis: eixo({ title: { text: 'dias', font: { size: 12 } } }),
+      shapes: [{ type: 'line', x0: h.evento, x1: h.evento, y0: 0, y1: 1, yref: 'paper', line: { color: tok('--accent'), width: 3 } }],
+      annotations: [{ x: h.evento, y: 1, yref: 'paper', text: `29/08/2026: ${Math.round(h.evento)} m`, showarrow: false, xanchor: 'left', yanchor: 'top', xshift: 6, font: { color: tok('--ink') } }] }), CFG);
+  const cores = [tok('--ep1'), tok('--ep2'), tok('--ep3')];
+  Plotly.react('g-anual', D.iso_anual.map((s, i) => ({ x: s.ano, y: s.iso, name: s.lugar, mode: 'lines', line: { color: cores[i], width: 1.8 }, hovertemplate: '%{x}: %{y:.0f} m<extra>' + s.lugar + '</extra>' })),
+    base({ xaxis: eixo({}), yaxis: eixo({ title: { text: 'média de agosto da isoterma (m)', font: { size: 12 } } }) }), CFG);
+}
+function tudo() { perguntas(); filtros(); cartoes(); tabelas(); graficos(); }
+tudo();
+if (!window.Plotly) window.addEventListener('load', graficos);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', graficos);
+new MutationObserver(graficos).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>
