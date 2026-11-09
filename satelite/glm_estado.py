@@ -5,7 +5,7 @@ Os radares do DECEA nao alcancam o oeste de SC neste dia (Santiago sem eco, Morr
 entao a trajetoria das celulas desde o oeste vem dos raios.
 
 Mesmo principio de clima_espacial_amas/scripts/75_baixa_glm.py: cada granulo de 20 s e lido na memoria,
-filtrado na caixa e descartado; so os pontos ficam. Diferencas: balde noaa-goes19 (GOES-East desde 2025),
+filtrado na caixa e descartado; so os pontos ficam. Diferencas: arquivo noaa-goes19 (GOES-East desde 2025),
 leitura com netCDF4 (memory=) em vez de xarray/h5netcdf, e downloads em paralelo.
 Retomavel: horas completas ficam em glm_horas_lidas.txt e sao puladas.
 

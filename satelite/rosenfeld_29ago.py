@@ -4,9 +4,9 @@
 Usa clima_espacial_amas/scripts/13_rosenfeld_celulas.py sem mudar o metodo (reflectancia de 3,9 um a partir de
 C07 e C14 com o angulo zenital solar, r_e proxy por pixel, nucleos < -55 C ancorados nos raios, frente x
 traseira). Adaptacoes, so de leitura:
-  - balde noaa-goes19 (GOES-East desde 2025) em vez de noaa-goes16;
+  - arquivo noaa-goes19 (GOES-East desde 2025) em vez de noaa-goes16;
   - abre os arquivos com netCDF4 (aqui nao ha h5netcdf);
-  - raios lidos de satelite/glm_pontos_sc.csv (ja baixados) em vez do balde;
+  - raios lidos de satelite/glm_pontos_sc.csv (ja baixados) em vez do arquivo da AWS;
   - dia 29/08/2026, 10 a 21 UTC, caixa de SC e Misiones.
 A tecnica so vale de dia (angulo zenital solar < 78 graus). Em 29/08 o sol nasce ~09:50 UTC na Ilha e ~10:15
 no oeste e se poe as 20:58 na Ilha: as celulas da madrugada e a da Ilha (nascida as 20:10) ficam fora.
