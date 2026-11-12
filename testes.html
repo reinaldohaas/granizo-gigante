@@ -99,7 +99,7 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule);
 
 <main class="largo">
 <header class="abre">
-  <p class="rotulo">Granizo de 29 de agosto de 2026 · testes e resultados até 08/11/2026</p>
+  <p class="rotulo">Granizo de 29 de agosto de 2026 · testes e resultados até 12/11/2026</p>
   <h1>Por que o granizo gigante voltou à Ilha?</h1>
   <p class="lead">Todos os testes feitos até aqui sobre o evento, o que cada um respondeu e o que falta. A ordem segue a lógica da investigação: primeiro saber se o modelo reproduz o granizo, depois o que o causou.</p>
 </header>
@@ -118,7 +118,7 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule);
 
 <section id="estrategia">
   <p class="rotulo">Estratégia</p>
-  <h2>Seis hipóteses, três frentes, um portão no modelo</h2>
+  <h2>Oito hipóteses, três frentes, um portão no modelo</h2>
   <p class="texto">Cada hipótese prevê algo diferente; o teste certo é o que separa uma da outra. As frentes A e C não dependem do modelo. A frente B tem um portão: enquanto o WRF não produzir granizo de 4–6 cm no lugar certo, os experimentos de causa no modelo não valem.</p>
   <div class="tabela"><table>
     <thead><tr><th>Hipótese</th><th>Se for verdade, esperamos ver</th><th>Frente</th><th>Hoje</th></tr></thead>
@@ -129,10 +129,12 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule);
       <tr><td><b>H4</b> Fumaça das queimadas alterou a microfísica</td><td>Granizo maior no modelo com o aerossol do dia; fumaça nos outros eventos</td><td>B</td><td>Pico de fumaça do mês, mas normal para a época: percentil 56–59 sobre SC e 38 no corredor, contra os mesmos dias de 1980–2025. Não foi um dia de fumaça anômala. Teste no modelo espera o portão.</td></tr>
       <tr><td><b>H5</b> Núcleos de gelo alterados</td><td>Granizo maior no modelo com os núcleos de gelo do dia</td><td>B</td><td>Sem dado nem teste.</td></tr>
       <tr><td><b>H6</b> Atividade solar pela via de Tinsley</td><td>Campo elétrico ou Jz anômalo antes dos eventos de granizo, em vários casos</td><td>C</td><td>Choque fraco e pico de Jz no dia, mas depois do granizo do oeste. Precisa de vários eventos e da grandeza certa.</td></tr>
+      <tr><td><b>H7</b> Nucleação homogênea: pouco gelo antes de −38 °C</td><td>Gotas pequenas e água líquida até perto de −38 °C; poucos embriões; calor de fusão liberado no alto</td><td>A e B</td><td>T-re das células de dia: gotas de ~5 µm até −25/−30 °C e glaciação perto de −35/−45 °C. Mas o RS de 2024 tem o mesmo perfil e deu enchente, e a célula da Ilha ficou fora (sol baixo).</td></tr>
+      <tr><td><b>H8</b> SPLASH: muitas pedras pequenas acumuladas, além das gigantes</td><td>Camada de gelo no chão; danos espalhados por muitas pedras</td><td>A e B</td><td>Telhados com centenas de furos; cerca de 600 casas atingidas em Florianópolis e 250 em Biguaçu. Sem medida da camada no chão. Tensão com H7: muitas pedras pedem muitos embriões.</td></tr>
     </tbody></table></div>
   <div class="duas">
-    <div style="display:grid;gap:6px"><h3>A · Observação e estatística</h3><p class="nota">Ambiente do dia contra a climatologia; inventário de granizo gigante (Ilha no século XIX, Sul do Brasil 2000–2026); frequência de dias com o mesmo ambiente. O inventário é a amostra de que H1, H2 e H6 precisam.</p></div>
-    <div style="display:grid;gap:6px"><h3>B · Modelo, com portão</h3><p class="nota">Portão: microfísica com granizo na rodada que cobre o oeste, com Grell-Freitas. Depois: isoterma da Pequena Idade do Gelo (H3), aerossol e núcleos de gelo (H4, H5).</p></div>
+    <div style="display:grid;gap:6px"><h3>A · Observação e estatística</h3><p class="nota">Ambiente do dia contra a climatologia; inventário de granizo gigante (Ilha no século XIX, Sul do Brasil 2000–2026); frequência de dias com o mesmo ambiente. O inventário é a amostra de que H1, H2 e H6 precisam. Relatos e fotos da camada de granizo no chão testam H8.</p></div>
+    <div style="display:grid;gap:6px"><h3>B · Modelo, com portão</h3><p class="nota">Portão: microfísica com granizo na rodada que cobre o oeste, com Grell-Freitas. Depois: isoterma da Pequena Idade do Gelo (H3), aerossol e núcleos de gelo (H4, H5, H7), granizo acumulado no chão (H8).</p></div>
     <div style="display:grid;gap:6px"><h3>C · Clima espacial</h3><p class="nota">Só por observação, porque o WRF não representa a via de Tinsley: compostos de vários eventos com campo elétrico de superfície ou Jz sem o ciclo diurno.</p></div>
   </div>
 </section>
@@ -259,6 +261,8 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule);
       <tr><td>7</td><td>Tinsley com a grandeza certa</td><td>2</td><td>Campo elétrico de superfície (eletricímetros) ou corrente de condução, em vários eventos</td><td>O índice dos magnetômetros é corrente ionosférica; sem a corrente de condução, a via de Tinsley fica sem teste. O ciclo Sq já foi removido do Jz da rede: o pulso de 29/08 fica em −12 nA/m², a 1,8σ.</td></tr>
       <tr><td>8</td><td>Sem esquema de cumulus</td><td>1</td><td>Grade externa de 3 km direto do ERA5 sobre o corredor (sem d01 de 9 km), combinada com o teste 1</td><td>Se a célula da Ilha e o granizo aparecerem sem cumulus, o acerto do Grell-Freitas era só de ambiente herdado. Se não aparecerem, a convecção explícita não basta.</td></tr>
       <tr><td>9</td><td>Verificação do granizo simulado</td><td>1</td><td>Relatos e danos fora da Ilha (Defesa Civil, seguradoras, Epagri) nos lugares onde os membros põem granizo sem núcleo de radar</td><td>Separa alarme falso de granizo que ninguém relatou; sem isso não se compara Grell-Freitas e Kain-Fritsch.</td></tr>
+      <tr><td>10</td><td>Nucleação homogênea</td><td>2, 5</td><td>Thompson-Eidhammer com núcleos de gelo reduzidos até a glaciação ficar perto de −38 °C, contra o controle, na rodada com granizo (teste 1)</td><td>Se a ascendente e o granizo crescem com pouco gelo, H7 ganha força. Se nada muda, a glaciação tardia é só um traço do ambiente, como no RS.</td></tr>
+      <tr><td>11</td><td>SPLASH</td><td>4, 5</td><td>Relatos e fotos da camada de granizo no chão (profundidade, área) na Ilha e em Biguaçu; granizo acumulado na superfície no WRF (HAILNC)</td><td>Camada espessa de pedras pequenas junto das gigantes indica dois regimes na mesma célula. Só pedras grandes e esparsas favorecem H7.</td></tr>
     </tbody></table></div>
 </section>
 
@@ -279,7 +283,7 @@ const PERGUNTAS = [
   { n: 2, t: 'Se sim, o que causou o granizo?', e: 'parcial', r: 'Ambiente: isoterma de 0 °C alta (percentil 94–98), vapor e CAPE extremos para agosto (percentis 97–99); não foi uma isoterma baixa. Fumaça: pico do mês no dia (AOD 0,25–0,36), mas na mediana dos mesmos dias de 1980–2025 (percentil 56–59 sobre SC, 38 no corredor). Atividade solar: choque fraco em 28/08 e pico de Jz ao meio-dia de 29/08 (o maior de 41 dias mesmo sem o ciclo diário, a 1,8σ), depois do granizo do oeste e antes do da Ilha. Núcleos de gelo: ainda sem teste.' },
   { n: 3, t: 'Por que um surto de supercélulas?', e: 'parcial', r: 'Trens de células com raios nascem na Argentina e no extremo-oeste e cruzam o estado a ~20 m/s por 400–490 km, em faixas de latitude que se repetem. Rotação não é observada (radar sem Doppler): “supercélula” ainda é inferência.' },
   { n: 4, t: 'Onde mais caiu granizo gigante, e o que há em comum?', e: 'aberto', r: 'Só a Grande Florianópolis tem tamanho documentado (“bolas de tênis” em Biguaçu, “bolas de golfe” em Ingleses). No oeste há danos (cerca de 200 casas em Ipuaçu), mas nenhuma fonte dá o tamanho.' },
-  { n: 5, t: 'Se não há nada em comum, por que só esta tempestade?', e: 'aberto', r: 'Nos topos frios, nos raios, no núcleo do radar e no ranking de 224 trajetórias, a célula da Ilha não se distinguiu das outras. A técnica de Rosenfeld não alcança as células com granizo (noite e sol baixo). O que a diferenciou ainda não apareceu nos testes; o único extremo local é a umidade.' },
+  { n: 5, t: 'Se não há nada em comum, por que só esta tempestade?', e: 'aberto', r: 'Nos topos frios, nos raios, no núcleo do radar e no ranking de 224 trajetórias, a célula da Ilha não se distinguiu das outras. A técnica de Rosenfeld não alcança as células com granizo (noite e sol baixo). O que a diferenciou ainda não apareceu nos testes; o único extremo local é a umidade. Duas hipóteses novas, a nucleação homogênea (H7) e o SPLASH (H8), ainda esperam teste direto.' },
 ];
 const ESTADO = { sim: ['--sim', 'feito'], parcial: ['--parcial', 'parcial'], nao: ['--nao', 'não, como está'], aberto: ['--aberto', 'aberta'],
   feito: ['--sim', 'feito'], limitado: ['--parcial', 'limitado'], pendente: ['--aberto', 'pendente'], corrigido: ['--sim', 'corrigido'] };
@@ -296,6 +300,8 @@ const TESTES = [
   { g: 'Observação', q: [5], e: 'feito', t: 'Raios: ranking e salto', r: 'A célula da Ilha teve até 320 flashes por 10 min (percentil 80 de 224 trajetórias) e nenhum salto de raios. A de Joaçaba foi a mais elétrica do dia (percentil 97), com salto às 10:00 sobre a cidade.', m: 'Máximo e total de flashes por trajetória; salto quando a variação da taxa passa de 2σ dos 5 intervalos anteriores.', f: ['satelite/glm_salto_raios.py'] },
   { g: 'Observação', q: [5], e: 'feito', t: 'Núcleo de radar da Ilha × outros', r: 'Núcleo de 100–113 km² (percentil 88 de 195 núcleos do dia), mas sem atingir o magenta, o topo da escala; só um núcleo do dia, sobre o mar, chegou lá.', m: 'Pixels vermelhos e magenta do MaxCAPPI do Morro da Igreja, 08 UTC de 29/08 a 06 UTC de 30/08.', f: ['radar/nucleo_ilha_ranking.py'] },
   { g: 'Observação', q: [5], e: 'limitado', t: 'Gotas no topo pela técnica de Rosenfeld', r: 'As células com granizo ficam fora: as do oeste foram de madrugada, a de Joaçaba só tem perfil às 11 UTC (sol baixo, todas as células saem com r_e < 8,5 µm), a da Ilha nasceu 48 min antes do pôr do sol. As de dia com raios mantêm gotas pequenas até −35/−40 °C, como as do RS de 2024.', m: 'Script 13_rosenfeld_celulas.py do caso do RS: r_e proxy de 3,9 µm (C07, C14), núcleos < −55 °C ancorados no GLM, 24 células de 11 a 20 UTC.', f: ['satelite/rosenfeld_29ago.py', 'satelite/rosenfeld_resumo.py'] },
+  { g: 'Observação', q: [2, 5], e: 'limitado', t: 'Nucleação homogênea (H7) pelo T-re', r: 'Nas células de dia, gotas de ~5 µm até −25/−30 °C e glaciação perto de −35/−45 °C, junto dos −38 °C da congelação homogênea, sem passar dos 14 µm do início da chuva. Pesa contra Hallett-Mossop. O RS de 2024 tem o mesmo perfil, e a célula da Ilha ficou fora.', m: 'Mesmos perfis do teste de Rosenfeld, lidos pela temperatura em que o r_e salta.', f: ['satelite/rosenfeld_resumo.py'] },
+  { g: 'Observação', q: [4, 5], e: 'pendente', t: 'SPLASH (H8): acúmulo de granizo pequeno', r: 'Telhados com centenas de furos e cerca de 600 casas atingidas em Florianópolis e 250 em Biguaçu sugerem muitas pedras, mas não há medida da camada de gelo no chão.', m: 'Proposto no teste 11 do plano.', f: [] },
   { g: 'Ambiente', q: [2], e: 'pendente', t: 'Ambiente às 18 UTC no resumo do I-SSTS', r: 'CAPE 2.376 J/kg, cisalhamento 925–500 hPa de 34 m/s, ar seco em 500 hPa: valores do resumo, ainda não recalculados.', m: 'ERA5 em níveis de pressão.', f: [] },
   { g: 'Modelo', q: [1], e: 'corrigido', t: 'Auditoria dos números do WRF', r: '4 de 5 conferem; o HAIL_MAX2D de 60,3 mm era a borda do domínio; a corrente ascendente de 48,4 m/s é no Vale do Tijucas.', m: 'Recalculado direto do wrfout.', f: [] },
   { g: 'Modelo', q: [1], e: 'corrigido', t: 'Visualização 3D', r: 'Dados reais, mas a altura das nuvens e a projeção estavam erradas; refeita com PH+PHB e STAND_LON.', m: 'ParaView.', f: [] },
