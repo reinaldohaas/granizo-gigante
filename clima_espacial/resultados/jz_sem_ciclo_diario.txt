@@ -1,0 +1,21 @@
+Jz da rede (nA/m2): 29/08 contra os outros dias, antes e depois de tirar o ciclo diario
+dias completos: 41 (01/08 a 10/09)
+dias calmos pelo Kp (metodo B): 26/08, 27/08, 25/08, 22/08, 04/09
+
+serie                     29/08   mediana   posicao  (posicao pelo modulo; 1 = maior)
+bruto_12_18              -27.04    -15.45     1/41
+bruto_18_24               -1.00     -1.24    31/41
+sem_ciclo_A_12_18        -11.56      0.03     1/41
+sem_ciclo_A_18_24          0.31      0.07    36/41
+sem_ciclo_B_12_18        -13.62     -2.03     1/41
+sem_ciclo_B_18_24          1.54      1.30    21/41
+z_A_12_18                 -1.84      0.02     1/41
+z_A_18_24                  0.12     -0.03    36/41
+
+so 15/08 a 10/09 (27 dias), como na afirmacao original:
+bruto_12_18              -27.04    -15.78     1/27
+sem_ciclo_A_12_18        -11.56     -0.30     1/27
+sem_ciclo_B_12_18        -13.62     -2.36     1/27
+z_A_12_18                 -1.84     -0.05     1/27
+
+ciclo diario A, 12-18 UTC: media -15.48; 18-24 UTC: -1.31; 00-12 UTC: 0.86
