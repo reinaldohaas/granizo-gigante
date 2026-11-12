@@ -305,6 +305,16 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
   <figure style="margin:0;max-width:640px"><img src="radar/figuras/rosenfeld_resumo.png" alt="Perfis de temperatura do topo contra raio efetivo das gotas em 29/08/2026 e no caso do RS de maio de 2024" width="960" height="900" loading="lazy" style="width:100%;height:auto;display:block;background:#fff"></figure>
   <p class="texto">O perfil T-re de Rosenfeld junta, de dia, a temperatura do topo de cada pixel das células (canal de 11 µm) e o tamanho das gotas no topo (raio efetivo, pela refletância de 3,9 µm). Com células em fases diferentes, os topos mais frios contam a história de uma nuvem que sobe. Em 29/08, das 12 às 19 UTC, o raio efetivo ficou no piso de ~5 µm até −25/−30 °C e só cresceu entre −35 e −45 °C, sem passar dos 14 µm em que Rosenfeld marca o início da chuva. É glaciação tardia, perto da congelação homogênea: muita água super-resfriada, calor de fusão liberado no alto e pouca chuva quente.</p>
   <p class="texto">Isso pesa contra a glaciação secundária por Hallett-Mossop e pela quebra de gotas, que pedem gotas grandes entre −3 e −8 °C. Se houve produção secundária de gelo, a hipótese que sobra é a quebra entre gelos no alto, ou um núcleo local que o satélite não resolve. Ressalvas: 5 µm é o piso do proxy, o valor é do topo e não do núcleo, a faixa de −3 a −8 °C não foi amostrada e a célula da Ilha, nascida às 20:10 UTC, ficou fora por causa do sol baixo. O caso do RS de maio de 2024 tem o mesmo padrão e deu enchente, então o T-re sozinho não explica o granizo.</p>
+  <h3>Duas hipóteses especulativas</h3>
+  <div class="tabela"><table>
+    <thead><tr><th></th><th>Nucleação homogênea</th><th>SPLASH</th></tr></thead>
+    <tbody>
+      <tr><td>A ideia</td><td>Com poucos núcleos de gelo, a água só congela sozinha perto de −38 °C, a ~10 km. Sobram muita água super-resfriada e poucos embriões, e o calor de fusão sai de uma vez no alto.</td><td><i>Storms Producing Large Accumulations of Small Hail</i>: tempestades que acumulam no chão uma camada de muitas pedras pequenas. Junto das pedras gigantes, a célula teria despejado granizo pequeno em grande quantidade.</td></tr>
+      <tr><td>A favor</td><td>T-re com gotas de ~5 µm até −25/−30 °C e glaciação perto de −35/−45 °C; raios sem salto.</td><td>Telhados com centenas de furos; cerca de 600 casas atingidas em Florianópolis e 250 em Biguaçu.</td></tr>
+      <tr><td>Contra</td><td>O caso do RS de 2024 tem o mesmo perfil e deu enchente; a célula da Ilha ficou fora do T-re.</td><td>Muitas pedras pedem muitos embriões, o oposto da pedra gigante; não há medida da camada de gelo no chão.</td></tr>
+      <tr><td>Teste</td><td>Thompson-Eidhammer com poucos núcleos de gelo, no WRF com assimilação.</td><td>Relatos e fotos da camada no chão; granizo acumulado na superfície no WRF (HAILNC).</td></tr>
+    </tbody></table></div>
+  <p class="texto">A nucleação homogênea dá poucos embriões grandes; o SPLASH pede muitos. O evento pode ter tido os dois, em partes diferentes da célula ou em lugares diferentes.</p>
 </section>
 
 <section id="testes">
@@ -339,6 +349,8 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
     <li>Ingredientes do granizo ao longo do corredor 27,3–27,5°S (ERA5): CAPE na zona de crescimento, nível de congelamento, cisalhamento.</li>
     <li>Perfil vertical da fumaça no CAMS.</li>
     <li>Microfísica com produção secundária de gelo ligada e desligada, e corte das pedras: embrião de gota congelada ou de graupel.</li>
+    <li>Thompson-Eidhammer com poucos núcleos de gelo, para testar a nucleação homogênea.</li>
+    <li>Relatos e fotos da camada de granizo no chão e o granizo acumulado no WRF, para testar o SPLASH.</li>
   </ul>
 </section>
 
