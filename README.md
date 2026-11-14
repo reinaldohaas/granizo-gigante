@@ -8,6 +8,13 @@ desde a Argentina e o extremo-oeste, relatos × passagem das células, a célula
 simulação com o WRF e os ensembles, aerossol e clima espacial na semana anterior, e a lista de testes e
 ressalvas.
 
+## Apresentação
+
+Pesquisa em andamento: os resultados são parciais e fazem parte de uma pesquisa sobre a associação entre
+eventos severos e clima espacial. A apresentação de 12/11/2026 (43 slides, PowerPoint) está em
+[português](apresentacao/granizo_ilha_apresentacao_pt.pptx) e em
+[inglês](apresentacao/granizo_ilha_apresentacao_en.pptx).
+
 ## Perguntas
 
 1. De onde vieram as células que deram granizo do oeste ao litoral, e como andaram pelo estado?
@@ -21,7 +28,7 @@ ressalvas.
 | `satelite/` | Rastreio das células pelos raios do GLM (GOES-19): download (`glm_estado.py`), trajetórias (`glm_trajetorias.py`), cruzamento com os relatos (`glm_relatos.py`) e figura (`fig_trajetorias_episodios.py`); série GOES-19 e GLM sobre a Ilha (`resumo_evento.csv`) e os scripts que a geram |
 | `radar/` | MaxCAPPI do DECEA/REDEMET (`baixar_redemet.py`, chave em variável de ambiente), mosaico Santiago + Morro da Igreja (`trajetoria_estado.py`), comparação WRF × radar e resumo dos ensembles, objetos do WRF d02 |
 | `clima_espacial/` | Kp, Dst, Ey, AE, nêutrons (Oulu, Dome C), AOD (CAMS e MERRA-2, com climatologia de agosto 1980–2026), Jz da rede de magnetômetros e a figura da semana anterior |
-| `apresentacao/` | Gerador da página (`build_index.py` + `index_modelo.html`) |
+| `apresentacao/` | Apresentação em pptx (português e inglês) e gerador da página (`build_index.py` + `index_modelo.html`) |
 
 A visualização 3D da supercélula está em [reinaldohaas/granizo_gigante](https://github.com/reinaldohaas/granizo_gigante).
 A tarefa da disciplina (sondagens, Emanuel, teste do WRF pelos alunos) está em
